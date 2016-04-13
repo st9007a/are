@@ -6,6 +6,10 @@
 	    <input id='studentID'>
 		<button id='submit'>submit</button>
 		<h1 id='return'></h1>
+		<div style='margin-top:50px;'>
+			<img id='loadingIMG' style='display:none;' src='http://sierrafire.cr.usgs.gov/images/loading.gif'>
+		</div>
+		
 		
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script>
@@ -17,8 +21,12 @@
 					url : '/hw',
 					success : function(data){
 					    console.log(data);
+						$('#loadingIMG').hide();
 						$('#studentID').val('');
 					    $('#return').html(data);
+					},
+					beforeSend:function(){
+						$('#loadingIMG').show();
 					},
 					error : function(){console.log('error');}
 				});

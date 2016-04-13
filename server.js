@@ -13,6 +13,12 @@ app.post('/hw', function(req, res){
     if(req.body.id == 'e24026551'){
 	    res.send('吳哲銘')
 	}
+	else if(req.body.id == 'c54036071'){
+	    res.send('史蕓瑄')
+	}
+	else if(req.body.id == 'f74034025'){
+	    res.send('郭子瑋')
+	}
 	else{
 	    res.send('not found');
 	}

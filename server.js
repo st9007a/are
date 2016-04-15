@@ -23,7 +23,6 @@ app.post('/hw', function(req, res){
 	    res.send('not found');
 	}
 });
-
 app.get('/', function(req, res){
     res.sendfile('public/index.html');
 });

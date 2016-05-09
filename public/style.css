@@ -1,0 +1,23 @@
+/*========== Reset ==========*/
+* { 
+    margin: 0;
+	padding: 0;
+}
+
+
+body { 
+    background-color:rgba(95, 26, 0, 0.87);
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.testClass{
+    font-size:2em;
+    color:rgba(17, 201, 24, 0.67);
+}
+
+
+
+#demo {
+    font-size: 1em;
+}

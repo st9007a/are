@@ -79,9 +79,10 @@ $('#overlay').click(function(){
 });
 
 //跳出對話框確認
-setInterval(function(){
-	$.getScript('gps.js', function(){
-		getCoords(function(position){	
+/*setInterval(function(){
+	$.getScript('main.js', function(){
+		getLocation(function(position){	
+			
 		    if($.cookie('story') != '1'){
 				$.ajax({
 					type : 'POST',
@@ -104,5 +105,5 @@ setInterval(function(){
 			}
 		});
 	});	
-},1000);
+},1000);*/
 

@@ -43,7 +43,7 @@ jQuery(document).ready(function()
          'video':
          {  
             //0為前置，1為後置
-            'optional': [ {'sourceId': exArray[1]} ]  
+            'optional': [ {'sourceId': exArray[0]} ]  
          }
         },
         successCallback, errorCallback);

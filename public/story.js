@@ -77,33 +77,48 @@ $('#overlay').click(function(){
 		$.cookie('content', contentSplit.join('\n'));
 	}
 });
-
+function getCoords(callback){
+	if (navigator.geolocation) {
+		var geo=navigator.geolocation;
+		var option={
+			enableAcuracy:true,
+			maximumAge:0.5,
+		};
+		geo.getCurrentPosition(
+			function(position){
+				callback(position);
+			},
+			function(){
+				console.log("error to get position at story.js");
+				callback(false);
+			},
+			option
+		);
+	}
+}
 //跳出對話框確認
-/*setInterval(function(){
-	$.getScript('main.js', function(){
-		getLocation(function(position){	
-			
-		    if($.cookie('story') != '1'){
-				$.ajax({
-					type : 'POST',
-					url : '/triggerContent',
-					data : {
-						account : 'user',
-						id : 0,
-						longitude : position.longitude,
-						latitude : position.latitude
-					},
-					success : function(data){
-						if(data != false){
-							showContent(data);
-						}
-					},
-					error : function(){
-						console.log('error : can not get story content');
+setInterval(function(){
+	getCoords(function(position){
+		if($.cookie('story') != '1'){
+			$.ajax({
+				type : 'POST',
+				url : '/triggerContent',
+				data : {
+					account : 'user',
+					id : 0,
+					longitude : position.longitude,
+					latitude : position.latitude
+				},
+				success : function(data){
+					if(data != false){
+						showContent(data);
 					}
-				});
-			}
-		});
-	});	
-},1000);*/
+				},
+				error : function(){
+					console.log('error : can not get story content');
+				}
+			});
+		}
+	});
+},1000);
 

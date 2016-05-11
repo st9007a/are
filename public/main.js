@@ -35,20 +35,19 @@ jQuery(document).ready(function()
                 if (sourceInfo.kind === 'video') //會遍歷audio,video，所以要判斷 
                     exArray.push(sourceInfo.id);  
             }
+			//取得視訊串流
+			navigator.getUserMedia(
+				{
+				 'video':
+				 {  
+					//0為前置，1為後置
+					'optional': [ {'sourceId': exArray[1]} ]  
+				 }
+				},
+				successCallback, errorCallback);
         });  
     
-    //取得視訊串流
-    navigator.getUserMedia(
-        {
-         'video':
-         {  
-            //0為前置，1為後置
-            'optional': [ {'sourceId': exArray[0]} ]  
-         }
-        },
-        successCallback, errorCallback);
-    
-    
+
     //拍照-------------------------------------
     
     function snapshot(canvasID)

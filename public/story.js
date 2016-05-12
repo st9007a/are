@@ -106,8 +106,8 @@ setInterval(function(){
 				data : {
 					account : 'user',
 					id : 0,
-					longitude : position.longitude,
-					latitude : position.latitude
+					longitude : position.coords.longitude,
+					latitude : position.coords.latitude
 				},
 				success : function(data){
 					if(data != false){

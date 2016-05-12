@@ -20,7 +20,7 @@ function showContent(data){
 			
 }
 $('.npc').click(function (){
-    var NPCID = $(this).attr('id');
+    var NPCID = $(this).attr('data-id');
 	
 	//story = true的狀況下 , 無法跳出其他對話框
 	$.cookie('story', '1');

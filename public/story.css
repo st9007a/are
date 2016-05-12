@@ -1,0 +1,25 @@
+#overlay{
+	opacity : 0;
+	z-index : 2;
+	display : none;
+	width : 100vw;
+	height : 100vh;
+	position : fixed;
+	top : 0vh;
+	left : 0vw;
+}
+#frame{
+	background-color : white;
+	z-index : 1;
+	width : 90vw;
+	height : 30vh;
+	position : fixed;
+	bottom : 5vh;
+	left : 5vw;
+	font-size : 60px;
+	color : black;
+	display : none;
+}
+.npc{
+	z-index : 0;
+}

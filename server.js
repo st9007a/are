@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -45,7 +45,8 @@ db.once('open', function () {
 	
 	var storyData = new Schema({
 		account: {type: String, unique : true},
-		data : {type: Array}
+		data : {type: Array},
+		backpack : {type: Array}
 	});
 	var storyCoords = new Schema({
 		stage : {type : Number, unique : true},
@@ -64,6 +65,10 @@ db.once('open', function () {
 	
 	//讀NPC說話的內容
 	app.post('/content', function(req, res){
+		
+		//遊戲階段
+		var gameStage;
+		
 	    //讀使用者的故事進度資料
 	    story.findOne({account:req.body.account} , function(error, result){
 		    if(result != null){
@@ -76,7 +81,10 @@ db.once('open', function () {
 				    if(data[i-1] == 1 &&data[i] == 0){
 					    //故事進度與主線NPC符合
 						if(storyOrder[i] == req.body.id ){
-								
+							
+							//儲存遊戲階段
+							gameStage = i;
+							
 							//文字檔檔名改成主線劇情的文字檔
 							fileName = i+'main';
 
@@ -91,6 +99,9 @@ db.once('open', function () {
 						}
 						//提示NPC的判定
 						else{
+							//儲存遊戲階段
+							gameStage = (i-1);
+							
 						    for(j=0;j<storyHint[i].length;j++){
 							    //如果id有存在該階段的提示裡
 							    if(req.body.id == storyHint[i][j]){
@@ -112,7 +123,11 @@ db.once('open', function () {
 						res.send('read file error');
 					}
 					else{
-						res.send(data);
+						var storyContent = {
+							stage : gameStage,
+							content : data.toString()
+						}; 
+						res.send(storyContent);
 					}
 				});
 								
@@ -162,7 +177,11 @@ db.once('open', function () {
 									res.send('read file error');
 								}
 								else{
-									res.send(data);
+									var storyContent = {
+										stage : progress,
+										content : data.toString()
+									};
+									res.send(storyContent);
 								}
 							});				
 						}
@@ -177,6 +196,51 @@ db.once('open', function () {
 				}
             }			
 		});
+	});
+	
+	app.post('/backpack', function(req,res){
+		
+		//得到物品
+		if(req.body.parameter == 1){
+			//搜尋玩家資料
+			story.findOne({account:req.body.id},function(error,result){
+				
+				//push物品進入背包
+				var backpackArr = result.backpack;
+				backpackArr.push(req.body.object);
+				
+				//更新玩家背包
+				story.update({account:req.body.id}, {$set : {backpack : backpackArr}}, function(err,resu){
+					if(err){
+						console.log(err);
+						res.send(err);
+					}
+					else{
+						res.send(true);
+					}
+				});
+			});
+		}
+		//丟掉物品
+		else if(req.body.parameter == 2){
+			//搜尋玩家資料
+			story.findOne({account:req.body.id},function(error,result){
+				var backpackArr = result.backpack;                            //取得背包
+				var removeIndex = backpackArr.indexOf(req.body.object);       //取得要刪除的物品的index
+				backpackArr = backpackArr.splice(removeIndex, 1);             //刪除該物品
+				
+				//更新玩家背包
+				story.update({account:req.body.id}, {$set : {backpack : backpackArr}}, function(err,resu){
+					if(err){
+						console.log(err);
+						res.send(err);
+					}
+					else{
+						res.send(true);
+					}
+				});
+			});
+		}
 	});
 });
 
@@ -208,4 +272,7 @@ app.get('/game', function(req, res){
 });
 app.get('/about', function(req, res){
     res.sendfile('public/about.html');
+});
+app.get('/story', function(re, res){
+	res.sendfile('public/story.html');
 });

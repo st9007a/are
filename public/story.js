@@ -23,7 +23,7 @@ $('.npc').click(function (){
     var NPCID = $(this).attr('data-id');
 	
 	//story = true的狀況下 , 無法跳出其他對話框
-	$.cookie('story', '1');
+	$.cookie('story', 1);
 	
 	$('#type').typed('reset');
 	$.ajax({
@@ -33,8 +33,13 @@ $('.npc').click(function (){
 		},
 		url : 'content',
 		type : 'post',
-		success : function(data){	
-			showContent(data);	
+		success : function(data){
+			
+			//cookie內存入故事進展階段
+			$.cookie('storyStage', data.stage);
+			
+			//顯示出拿到的文字內容
+			showContent(data.content);	
 		},
 		error : function(){
 			console.log('error : can not get story content');
@@ -99,7 +104,7 @@ function getCoords(callback){
 //跳出對話框確認
 setInterval(function(){
 	getCoords(function(position){
-		if($.cookie('story') != '1'){
+		if($.cookie('story') != 1){
 			$.ajax({
 				type : 'POST',
 				url : '/triggerContent',
@@ -111,7 +116,11 @@ setInterval(function(){
 				},
 				success : function(data){
 					if(data != false){
-						showContent(data);
+						//cookie內存入故事進展階段
+						$.cookie('storyStage', data.stage);
+						
+						//顯示出拿到的文字內容
+						showContent(data.content);
 					}
 				},
 				error : function(){

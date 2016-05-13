@@ -109,12 +109,13 @@ setInterval(function(){
 				type : 'POST',
 				url : '/triggerContent',
 				data : {
-					account : 'user',
+					account : $.cookie('usrd'),
 					id : 0,
 					longitude : position.coords.longitude,
 					latitude : position.coords.latitude
 				},
 				success : function(data){
+					
 					if(data != false){
 						//cookie內存入故事進展階段
 						$.cookie('storyStage', data.stage);

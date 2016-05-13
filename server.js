@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -52,7 +52,8 @@ db.once('open', function () {
 	var storyData = new Schema({
 		account: {type: String, unique : true},
 		data : {type: Array},
-		backpack : {type: Array}
+		backpack : {type: Array},
+		gameStage : {type: Number}
 	});
 	var storyCoords = new Schema({
 		stage : {type : Number, unique : true},
@@ -86,7 +87,8 @@ db.once('open', function () {
 		new story({
 			account : sha1(req.body.id).toString(),
 			data : [1,0,0,0],
-			backpack : []
+			backpack : [],
+			gameStage : 0
 		}).save();
 		console.log(req.body);
 		res.send(sha1(req.body.id).toString());
@@ -166,6 +168,7 @@ db.once('open', function () {
 	
 	app.post('/triggerContent', function(req, res){
 		story.findOne({account:req.body.account} , function(error, result){
+			
 		    if(result != null){
 			    var data = result.data;        //故事進度
 				var fileName = req.body.id;    //要讀取的文字檔檔名
@@ -191,6 +194,7 @@ db.once('open', function () {
 						latitudeLowerBound : {$lte : req.body.latitude}
 					}, 
 					function(err, resu){
+						
 						if(resu.stage == progress){	
 							fileName = progress+'main';
 							//故事進度推進

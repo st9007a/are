@@ -18,7 +18,17 @@
 			//testAPI()
 			//document.getElementByTagName('fb').hide();
 			  //document.getElementById('startgame').style.display = 'block';
-			  window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game')
+			  $.ajax({
+				type : 'post',
+				url : '/login',
+				data : {
+					id : response.id,
+					name : response.name
+				},
+				success : function(){/*window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game');*/console.log(response.name);},
+				error : function(err){console.log(err);}
+			  });
+			  
 			 
 			} else if (response.status === 'not_authorized') {
 			  

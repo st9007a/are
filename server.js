@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var https = require('spdy');
 var LEX = require('letsencrypt-express');
 var fs = require('fs');
+var child = require('child_process');
 
 var mongoose = require('mongoose');
 var USER_PASSWD = process.argv[2];
@@ -43,6 +44,10 @@ db.once('open', function () {
 
     var Schema = mongoose.Schema;
 	
+	var userName = new Schema({
+		id : {type : String, unique : true},
+		name : {type : String, unique : true}
+	});
 	var storyData = new Schema({
 		account: {type: String, unique : true},
 		data : {type: Array},
@@ -56,12 +61,35 @@ db.once('open', function () {
 		latitudeLowerBound : {type : Number}
 	});
 	
+	var userName = mongoose.model('username', userName);
 	var story = mongoose.model('story' , storyData);
 	var storyCoord = mongoose.model('storyCoord', storyCoords);
 	
 	//主線NPC說話順序
 	var storyOrder = [0,1,0,3];
 	var storyHint = [[],[2],[3],[1]];
+	
+	
+	app.post('/login',function(req,res){
+		//req = facebook user id
+		var path = 'usr/'+req.body.name;
+		var cp = child.spawn('mkdir',[path]);
+
+		cp.stderr.on('data', function(buf) {
+			console.log('[STR] stderr "%s"', String(buf));
+		});
+		new userName({
+			id : req.body.id,
+			name : req.body.name
+		}).save();
+		new story({
+			account : req.body.id,
+			data : [1,0,0,0],
+			backpack : []
+		}).save();
+		console.log(req.body);
+		res.send(true);
+	});
 	
 	//讀NPC說話的內容
 	app.post('/content', function(req, res){

@@ -6,6 +6,7 @@ var https = require('spdy');
 var LEX = require('letsencrypt-express');
 var fs = require('fs');
 var child = require('child_process');
+var sha1 = require('sha1');
 
 var mongoose = require('mongoose');
 var USER_PASSWD = process.argv[2];
@@ -72,23 +73,23 @@ db.once('open', function () {
 	
 	app.post('/login',function(req,res){
 		//req = facebook user id
-		var path = 'usr/'+req.body.name;
+		var path = 'usr/'+sha1(req.body.id);
 		var cp = child.spawn('mkdir',[path]);
 
 		cp.stderr.on('data', function(buf) {
 			console.log('[STR] stderr "%s"', String(buf));
 		});
 		new userName({
-			id : req.body.id,
+			id : sha1(req.body.id).toString(),
 			name : req.body.name
 		}).save();
 		new story({
-			account : req.body.id,
+			account : sha1(req.body.id).toString(),
 			data : [1,0,0,0],
 			backpack : []
 		}).save();
 		console.log(req.body);
-		res.send(true);
+		res.send(sha1(req.body.id).toString());
 	});
 	
 	//讀NPC說話的內容

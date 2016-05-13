@@ -3,13 +3,12 @@
 	<head>
 		<title>Facebook Login JavaScript Example</title>
 		<meta charset="UTF-8">
+		<script  src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src='js/jcookie/jquery.cookie.js'></script>
 	</head>
 	<body>
-		<script  src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script>
 		
-				
-			 
+		<script> 
 		  function statusChangeCallback(response) {
 			console.log('statusChangeCallback');
 			console.log(response);
@@ -28,7 +27,10 @@
 					id : response.id,
 					name : response.name
 				},
-				success : function(){window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game');},
+				success : function(data){
+					$.cookie('usrd', data.toString());
+					window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game');
+				},
 				error : function(err){console.log(err);}
 			  });
 			  

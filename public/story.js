@@ -28,7 +28,7 @@ $('.npc').click(function (){
 	$('#type').typed('reset');
 	$.ajax({
 		data : {
-			account : 'user',
+			account : $.cookie('usrd'),
 			id : NPCID
 		},
 		url : 'content',

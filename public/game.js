@@ -3,7 +3,7 @@ function getLeafletOnLevel2(){
 		type : 'post',
 		url : '/backpack',
 		data : {
-			id : 'st9007a'
+			id : $.cookie('usrd'),
 			parameter : 1,
 			object : 'Leaflet'
 		},

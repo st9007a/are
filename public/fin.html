@@ -14,9 +14,12 @@
 			console.log('statusChangeCallback');
 			console.log(response);
 			
-			if (response.status === 'connected') {
-			  
-			  testAPI();
+			if (response.status === 'connected') { 
+			//testAPI()
+			//document.getElementByTagName('fb').hide();
+			  //document.getElementById('startgame').style.display = 'block';
+			  window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game')
+			 
 			} else if (response.status === 'not_authorized') {
 			  
 			  document.getElementById('status').innerHTML = 'Please log ' +
@@ -61,7 +64,7 @@
 		  }(document, 'script', 'facebook-jssdk'));
 
 		  
-		  function testAPI() {
+		  /*function testAPI() {
 			console.log('Welcome!  Fetching your information.... ');
 			FB.api('/me', function(response) {
 			  console.log('Successful login for: ' + response.name);
@@ -70,38 +73,30 @@
 				
 				
 			});
-		  }
+		  }*/
 		  
-			
-			function statusChangeCallback(response) {
-			  if (response.status === 'connected') {
-			  document.getElementById('startgame').style.display = 'block'}
-			  }
-			  
+
 		  
-		  
-			function gamestart() {
+			/*function gamestart() {
 				FB.api('/me',{fields: 'name'},function(response) {
-				  console.log(response);
+				  //console.log(response);
 				 document.getElementById("startgame").onclick =function(){
 				//alert('歡迎來到一探舊境 SeeMarket,'+ response.name);
 				window.location.replace('https://luffy.ee.ncku.edu.tw:8011/game');
 				}}
 					
-			)}
+			)}*/
 
 		  
 		  
 		</script>
 
-		<!--
-		  Below we include the Login Button social plugin. This button uses
-		  the JavaScript SDK to present a graphical Login button that triggers
-		  the FB.login() function when clicked.
-		-->
-
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		<fb:login-button id='loginbutton' scope="public_profile,email" onlogin="checkLoginState();">
 		</fb:login-button>
+		
+		<!--<button type="button"><img id='loginbutton' src="http://imgur.com/6WTGTg0  onlogin="checkLoginState();"></button>-->
+		
+		<!--<input type="button" id='loginbutton' style="background-image:http://imgur.com/6WTGTg0;" onlogin="checkLoginState();>-->
 
 		<div id="status">
 		</div>

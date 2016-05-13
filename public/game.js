@@ -17,10 +17,10 @@ function getLeafletOnLevel2(){
 			console.log(err);
 		}
 	});
-}
+};
 function lookLeafletOnLevel2(){
 	$('#leaflet1').show();
-}
+};
 function game(){
 	if ($.cookie('story') != 1 && $.cookie('storyStage') == 2 && $.cookie('gameStage') == 0){
 		getLeafletOnLevel2();
@@ -28,4 +28,22 @@ function game(){
 	if($.cookie('story') != 1 && $.cookie('storyStage') == 3 && $.cookie('gameStage') == 1){
 		lookLeafletOnLevel2();
 	}
-}
+};
+$(document).ready(function(){
+	$.ajax({
+		type : 'post',
+		url : '/getPlayerData',
+		data : {
+			id : $.cookie('usrd')
+		},
+		success : function(data){
+			$.cookie('storyStage', data.storyStage);
+			$.cookie('gameStage', data.gameStage);
+			
+			//背包處理~~
+		},
+		error : function(err){
+			console.log(err);
+		}
+	});
+});

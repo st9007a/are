@@ -18,7 +18,7 @@ function showContent(data){
 	//其餘內容存進cookie
 	$.cookie('content', contentSplit.join('\n'));	
 			
-}
+};
 $('.npc').click(function (){
     var NPCID = $(this).attr('data-id');
 	
@@ -100,7 +100,7 @@ function getCoords(callback){
 			option
 		);
 	}
-}
+};
 //跳出對話框確認
 setInterval(function(){
 	getCoords(function(position){

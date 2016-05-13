@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -73,6 +73,7 @@ db.once('open', function () {
 	
 	
 	app.post('/login',function(req,res){
+		console.log("aaa");
 		//req = facebook user id
 		var path = 'usr/'+sha1(req.body.id);
 		var cp = child.spawn('mkdir',[path]);
@@ -92,6 +93,28 @@ db.once('open', function () {
 		}).save();
 		console.log(req.body);
 		res.send(sha1(req.body.id).toString());
+	});
+	
+	app.post('/getPlayerData', function(req,res){
+		story.findOne({account:req.body.id}, function(error, result){
+			if(result != null){
+				userName.findOne({id:req.body.id}, function(err, resu){
+					var storyStage;
+					for(i=0;i<result.data.length;i++){
+						if(result.data[i] == 1&&result.data[i+1] == 0){
+							storyStage = i;
+							break;
+						}
+					}
+					var data = {
+						name : resu.name,
+						storyStage : i,
+						gameStage : result.gameStage
+					};
+					res.send(data);
+				});
+			}
+		});
 	});
 	
 	//讀NPC說話的內容

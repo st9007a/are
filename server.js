@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -101,7 +101,7 @@ db.once('open', function () {
 				userName.findOne({id:req.body.id}, function(err, resu){
 					var storyStage;
 					for(i=0;i<result.data.length;i++){
-						if(result.data[i] == 1&&result.data[i+1] == 0){
+						if(result.data[i] == 1&& (result.data[i+1] == 0 || result.data[i+1]==undefined)){
 							storyStage = i;
 							break;
 						}

@@ -5,7 +5,7 @@ function showContent(data){
 	$('#frame').show();	     //顯示對話框
 			
 	//打字
-	$('#type').typed({
+	$('#typed').typed({
 		strings : [contentSplit[0]],
 		typeSpeed : 30,
 		loop : false
@@ -25,7 +25,7 @@ $('.npc').click(function (){
 	//story = true的狀況下 , 無法跳出其他對話框
 	$.cookie('story', 1);
 	
-	$('#type').typed('reset');
+	$('#typed').typed('reset');
 	$.ajax({
 		data : {
 			account : $.cookie('usrd'),
@@ -58,17 +58,17 @@ $('#overlay').click(function(){
 		
 		$('#overlay').hide();           //隱藏overlay
 		$('#frame').hide();  		//隱藏對話框   
-		$('#type').typed('reset');      
+		$('#typed').typed('reset'); 
 	}
 	//cookie裡有文字內容則顯示下一段內容
 	else{
-	    $('#type').typed('reset');
+	    $('#typed').typed('reset');
 		
 		//取出cookie的內容並且分割
 	    var contentSplit = $.cookie('content').split('\n');
 		
 		//打字
-		$('#type').typed({
+		$('#typed').typed({
 			strings : [contentSplit[0]],
 			typeSpeed : 30,
 			loop : false

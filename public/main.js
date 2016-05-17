@@ -52,27 +52,61 @@ jQuery(document).ready(function()
                 },
                 successCallback, errorCallback);
             
-        });  
+        });
     
 
-    
+
     //拍照-------------------------------------
     
     function snapshot(canvasID)
     {   
         var canvas = document.querySelector('#'+canvasID);
         var ctx = canvas.getContext('2d');
+        var resolutionX=450;
+        var resolutionY=800;
         
         if (stream)
         {
-            ctx.drawImage(video, -100, -100);
-            console.log(ctx);
-            //存成image用 - Chrome：“image/webp”，其他：“image/png”
-            //document.querySelector('img').src = canvas.toDataURL('image/webp');
+            // 將video的影像畫到一個canvas裡
+            ctx.drawImage(video,0,0,resolutionX,resolutionY);
+            
+            //存成影像檔
+            if(!window.chrome) //非Chrome
+            {
+                currentSnapshot=canvas.toDataURL('image/png');
+            }
+            else
+            {
+                currentSnapshot=canvas.toDataURL('image/webp');
+            }
         }
     }
-
-    video.addEventListener('click', function(){ snapshot('test') }, false);
+    
+    //傳送照片
+    function sendSnapshot()
+    {
+        snapshot('test'); //拍照
+        
+        //傳送
+        $.ajax(
+        {
+            type : 'POST',
+            data : currentSnapshot,
+            url : '/snapshot',
+            success : function(currentSnapshot)
+            {
+                console.log(currentSnapshot);
+            },
+            beforeSend : function()
+            {
+                console.log("Ready to 傳送照片～");;
+            },
+            error : function()
+            {
+                console.log("傳送照片失敗!!!");
+            }
+        }); 
+    }
     
     
     
@@ -82,44 +116,74 @@ jQuery(document).ready(function()
     {
         //監聽裝置方向
         window.addEventListener('deviceorientation', function(event)
-        {
-            var a = document.getElementById('alpha'),
-                b = document.getElementById('beta'),
-                g = document.getElementById('gamma'),
-                beta = event.beta,
-                gamma = event.gamma;
-            
-                //iOS用
-                if(event.webkitCompassHeading)
-                {
-                    alpha = event.webkitCompassHeading;
-                }
-                //其他
-                else
-                {
-                    alpha = event.alpha;
-                    
-                    //非Chrome
-                    if(!window.chrome)
-                    {
-                        alpha = alpha-270;
-                    }
-                }
+        { 
+            beta = event.beta;
+            gamma = event.gamma;
 
-            a.innerHTML = Math.round(alpha);
-            b.innerHTML = Math.round(beta);
-            g.innerHTML = Math.round(gamma);
-            
-        }, false);
+            //iOS用
+            if(event.webkitCompassHeading)
+            {
+                alpha = event.webkitCompassHeading;
+            }
+            //其他
+            else
+            {
+                alpha = event.alpha;
+
+                //非Chrome
+                if(!window.chrome)
+                {
+                    alpha = alpha-270;
+                }
+            }   
+        },false);
     }
     else
     {
-        document.querySelector('#alpha').innerHTML = '你的瀏覽器不支援喔～～';
+        console.log('不支援陀螺儀喔～～');
     }
     
     
+    //傳送陀螺儀資訊
+    function sendDeviceOrientation()
+    {
+        var data=
+            {
+                alpha:alpha,
+                beta:beta,
+                gamma:gamma
+            }
+        
+        $.ajax(
+        {
+            type : 'POST',
+            data : data,
+            url : '/deviceorientation',
+            success : function(data)
+            {
+                console.log(data);
+            },
+            beforeSend : function()
+            {
+                console.log("Ready to 傳送陀螺儀資訊～");;
+            },
+            error : function()
+            {
+                console.log("傳送陀螺儀資訊失敗!!!");
+            }
+        }); 
+    }
     
-}); //end of jQuery(document).ready
+    var a = document.getElementById('alpha'),
+        b = document.getElementById('beta'),
+        g = document.getElementById('gamma');
+    a.innerHTML = Math.round(alpha);
+    b.innerHTML = Math.round(beta);
+    g.innerHTML = Math.round(gamma);
+    
+    
+    
+}); //end of jQuery
 
 
 
@@ -208,7 +272,7 @@ function watch()
 //追蹤成功要幹嘛
 function watchPosition(position)
 {
-    
+    console.log(position);
 }
 
 
@@ -228,13 +292,34 @@ function watchPositionErr(error)
 }
 
 
+//傳送位置資訊
+function sendPosition()
+{
+    var data=
+        {
+            latitude:position.coords.latitude,
+            longitude:position.coords.longitude,
+            accuracy:position.coords.accuracy
+        }
 
-
-
-
-
-
-
-
+    $.ajax(
+    {
+        type : 'POST',
+        data : data,
+        url : '/position',
+        success : function(data)
+        {
+            console.log(data);
+        },
+        beforeSend : function()
+        {
+            console.log("Ready to 傳送位置資訊～");;
+        },
+        error : function()
+        {
+            console.log("傳送位置資訊失敗!!!");
+        }
+    }); 
+}
 
 

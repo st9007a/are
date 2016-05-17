@@ -59,6 +59,7 @@ $('#overlay').click(function(){
 		$('#overlay').hide();           //隱藏overlay
 		$('#frame').hide();  		//隱藏對話框   
 		$('#typed').typed('reset'); 
+		$.getScript('game.js', function(){game();});  //調用game()
 	}
 	//cookie裡有文字內容則顯示下一段內容
 	else{

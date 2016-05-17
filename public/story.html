@@ -1,12 +1,10 @@
 <html>
     <head>
 		<link rel='stylesheet' type="text/css" href="story.css">
-		<link rel="stylesheet" type="text/css" href="ImageTransitions/ImageTransitions/css/style6.css" />
-		<script src="ImageTransitions/ImageTransitions/js/modernizr.custom.70748.js"></script>
 		<script  src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src='js/jcookie/jquery.cookie.js'></script>
 		<script src='js/typed.js-master/js/typed.js'></script>
-		<script src="ImageTransitions/ImageTransitions/js/jquery.transitions.js"></script>	
+
 		
     </head>
     <body>
@@ -16,49 +14,9 @@
 		<div id='frame'>
 			<h1 id='typed'></h1>
 		</div>
-		<div class="te-container"  id="leaflet">	
-			<div class="te-controls">
-				<select id="type">
-					<option value="te-example1">example1</option>
-				</select>
-				<button id="te-next"  class="te-next">next</button>
-			<div class="te-shadow"></div>
-			</div>
-			
-			<div id="te-wrapper" class="te-wrapper">
-					
-			    <div class="te-images">
-					<img src="ImageTransitions/ImageTransitions/images/1.jpg" >
-					<img src="ImageTransitions/ImageTransitions/images/2.jpg" >
-					<img src="ImageTransitions/ImageTransitions/images/3.jpg" >
-					<img src="ImageTransitions/ImageTransitions/images/4.jpg" >
-					<img src="ImageTransitions/ImageTransitions/images/5.jpg" >
-				</div>
 
-				<div class="te-cover">
-					<img src="ImageTransitions/ImageTransitions/images/1.jpg"/>
-				</div>
-
-				<div class="te-transition">
-					<div class="te-card">
-						<div class="te-front"></div>
-						<div class="te-back"></div>
-					</div>
-				</div>					
-			</div>
-		</div>
 		<img id='overlay' src='https://media.cool3c.com/files/media/3/3_28.png'>
 		<script src = 'story.js'></script>
-		<script type="text/javascript" src="ImageTransitions/ImageTransitions/js/demo.js"></script>
-		<script>
-			var count = 0;
-			$('#te-next').click(function(){
-				count ++ ;
-				if(count>2){
-					$('#leaflet').hide();
-				}
-			});
-			
-		</script>
+
     </body>
 </html>

@@ -45,14 +45,11 @@ db.once('open', function () {
 
     var Schema = mongoose.Schema;
 	
-	var userName = new Schema({
-		id : {type : String, unique : true},
-		name : {type : String, unique : true}
-	});
 	var storyData = new Schema({
 		account: {type: String, unique : true},
+		name : {type : String},
+		hp : {type : Number},
 		data : {type: Array},
-		backpack : {type: Array},
 		gameStage : {type: Number}
 	});
 	var storyCoords = new Schema({
@@ -63,7 +60,6 @@ db.once('open', function () {
 		latitudeLowerBound : {type : Number}
 	});
 	
-	var userName = mongoose.model('username', userName);
 	var story = mongoose.model('story' , storyData);
 	var storyCoord = mongoose.model('storyCoord', storyCoords);
 	
@@ -73,7 +69,6 @@ db.once('open', function () {
 	
 	
 	app.post('/login',function(req,res){
-		console.log("aaa");
 		//req = facebook user id
 		var path = 'usr/'+sha1(req.body.id);
 		var cp = child.spawn('mkdir',[path]);
@@ -81,14 +76,12 @@ db.once('open', function () {
 		cp.stderr.on('data', function(buf) {
 			console.log('[STR] stderr "%s"', String(buf));
 		});
-		new userName({
-			id : sha1(req.body.id).toString(),
-			name : req.body.name
-		}).save();
+
 		new story({
 			account : sha1(req.body.id).toString(),
+			name : req.body.name,
+			hp : 100,
 			data : [1,0,0,0],
-			backpack : [],
 			gameStage : 0
 		}).save();
 		console.log(req.body);
@@ -98,21 +91,21 @@ db.once('open', function () {
 	app.post('/getPlayerData', function(req,res){
 		story.findOne({account:req.body.id}, function(error, result){
 			if(result != null){
-				userName.findOne({id:req.body.id}, function(err, resu){
-					var storyStage;
-					for(i=0;i<result.data.length;i++){
-						if(result.data[i] == 1&& (result.data[i+1] == 0 || result.data[i+1]==undefined)){
-							storyStage = i;
-							break;
-						}
+				
+				var storyStage;
+				for(i=0;i<result.data.length;i++){
+					if(result.data[i] == 1&& (result.data[i+1] == 0 || result.data[i+1]==undefined)){
+						storyStage = i;
+						break;
 					}
-					var data = {
-						name : resu.name,
-						storyStage : i,
-						gameStage : result.gameStage
-					};
-					res.send(data);
-				});
+				}
+				var data = {
+					name : result.name,
+					storyStage : i,
+					gameStage : result.gameStage
+				};
+				res.send(data);
+				
 			}
 		});
 	});
@@ -254,50 +247,7 @@ db.once('open', function () {
 		});
 	});
 	
-	app.post('/backpack', function(req,res){
-		
-		//得到物品
-		if(req.body.parameter == 1){
-			//搜尋玩家資料
-			story.findOne({account:req.body.id},function(error,result){
-				
-				//push物品進入背包
-				var backpackArr = result.backpack;
-				backpackArr.push(req.body.object);
-				
-				//更新玩家背包
-				story.update({account:req.body.id}, {$set : {backpack : backpackArr}}, function(err,resu){
-					if(err){
-						console.log(err);
-						res.send(err);
-					}
-					else{
-						res.send(true);
-					}
-				});
-			});
-		}
-		//丟掉物品
-		else if(req.body.parameter == 2){
-			//搜尋玩家資料
-			story.findOne({account:req.body.id},function(error,result){
-				var backpackArr = result.backpack;                            //取得背包
-				var removeIndex = backpackArr.indexOf(req.body.object);       //取得要刪除的物品的index
-				backpackArr = backpackArr.splice(removeIndex, 1);             //刪除該物品
-				
-				//更新玩家背包
-				story.update({account:req.body.id}, {$set : {backpack : backpackArr}}, function(err,resu){
-					if(err){
-						console.log(err);
-						res.send(err);
-					}
-					else{
-						res.send(true);
-					}
-				});
-			});
-		}
-	});
+	
 });
 
 

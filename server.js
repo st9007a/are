@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -50,8 +50,7 @@ db.once('open', function () {
 		name : {type : String},
 		hp : {type : Number},
 		data : {type: Array},
-		gameStage : {type: Number},
-		queue : {type: String}
+		gameStage : {type: Number}
 	});
 	var storyCoords = new Schema({
 		stage : {type : Number, unique : true},
@@ -83,8 +82,7 @@ db.once('open', function () {
 			name : req.body.name,
 			hp : 100,
 			data : [1,0,0,0],
-			gameStage : 0,
-			queue : 'ssggsgsgs'
+			gameStage : 0
 		}).save();
 		console.log(req.body);
 		res.send(sha1(req.body.id).toString());
@@ -104,8 +102,7 @@ db.once('open', function () {
 				var data = {
 					name : result.name,
 					storyStage : i,
-					gameStage : result.gameStage,
-					queue : result.queue
+					gameStage : result.gameStage
 				};
 				res.send(data);
 				
@@ -214,7 +211,6 @@ db.once('open', function () {
 						stage : progress
 					}, 
 					function(err, resu){
-						console.log(resu);
 						if(resu.stage == progress){	
 							fileName = progress+'main';
 							//故事進度推進

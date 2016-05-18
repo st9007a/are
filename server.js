@@ -64,8 +64,8 @@ db.once('open', function () {
 	var storyCoord = mongoose.model('storyCoord', storyCoords);
 	
 	//主線NPC說話順序
-	var storyOrder = [0,1,0,3];
-	var storyHint = [[],[2],[3],[1]];
+	var storyOrder = [0,1,2,0,0,0];
+	var storyHint = [[],[],[],[]];
 	
 	
 	app.post('/login',function(req,res){

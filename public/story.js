@@ -48,13 +48,13 @@ $('.npc').click(function (){
 				
 });	
 $('#overlay').click(function(){	
-
+	
 	//cookie裡沒有文字內容就刪掉該cookie
 	if($.cookie('content') == ''){
 		
 		//刪除cookie
 		$.cookie('content',  '', { expires: -1 });	 
-		$.cookie('story', '', {expire: -1});         
+		$.cookie('story', '', {expires: -1});         
 		
 		$('#overlay').hide();           //隱藏overlay
 		$('#frame').hide();  		//隱藏對話框   
@@ -66,7 +66,7 @@ $('#overlay').click(function(){
 	    $('#typed').typed('reset');
 		
 		//取出cookie的內容並且分割
-	    var contentSplit = $.cookie('content').split('\n');
+	    var contentSplit = $.cookie('content').toString().split('\n');
 		
 		//打字
 		$('#typed').typed({
@@ -95,7 +95,7 @@ function getCoords(callback){
 				callback(position);
 			},
 			function(){
-				console.log("error to get position at story.js");
+				console.log("error to get position ");
 				callback(false);
 			},
 			option
@@ -103,33 +103,34 @@ function getCoords(callback){
 	}
 };
 //跳出對話框確認
-setInterval(function(){
-	getCoords(function(position){
-		if($.cookie('story') != 1){
-			$.ajax({
-				type : 'POST',
-				url : '/triggerContent',
-				data : {
-					account : $.cookie('usrd'),
-					id : 0,
-					longitude : position.coords.longitude,
-					latitude : position.coords.latitude
-				},
-				success : function(data){
-					
-					if(data != false){
-						//cookie內存入故事進展階段
-						$.cookie('storyStage', data.stage);
-						
-						//顯示出拿到的文字內容
-						showContent(data.content);
+setInterval(
+	function(){
+		getCoords(function(position){
+			if($.cookie('story') != 1){
+				$.ajax({
+					type : 'POST',
+					url : '/triggerContent',
+					data : {
+						account : $.cookie('usrd'),
+						id : 0,
+						longitude : position.coords.longitude,
+						latitude : position.coords.latitude
+					},
+					success : function(data){
+						if(data != false){
+							$.cookie('story', 1);
+							//cookie內存入故事進展階段
+							$.cookie('storyStage', data.stage);
+							
+							//顯示出拿到的文字內容
+							showContent(data.content);
+						}
+					},
+					error : function(){
+						console.log('error : can not get story content');
 					}
-				},
-				error : function(){
-					console.log('error : can not get story content');
-				}
-			});
-		}
-	});
+				});
+			}
+		});
 },1000);
 

@@ -20,7 +20,7 @@ $('#leaflet3').click(function(){
 $('#checkPwd').click(function(){
 	if($('#Pwd').val() == '0501'){
 		$('#inputPwd').fadeOut(500, function(){
-			$.cookie('story', {expire : -1});
+			$.cookie('story', '', {expires: -1});
 			$.cookie('gameStage', 4);
 		});
 	}

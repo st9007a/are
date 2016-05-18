@@ -1,6 +1,3 @@
-navigator.vibrate = navigator.vibrate|| navigator.webkitVibrate|| navigator.mozVibrate|| navigator.msVibrate;
-
-
 $('#leaflet1').click(function(){
 	$('#leaflet1').fadeOut(500, function(){
 		$('#leaflet2').fadeIn(500);
@@ -14,7 +11,7 @@ $('#leaflet2').click(function(){
 $('#leaflet3').click(function(){
 	$('#leaflet3').hide();
 	$.cookie('story', {expire : -1});
-	$.cookie('gameStage', 3);
+	$.cookie('gameStage', 2);
 });
 
 $('#checkPwd').click(function(){
@@ -22,6 +19,7 @@ $('#checkPwd').click(function(){
 		$('#inputPwd').fadeOut(500, function(){
 			$.cookie('story', '', {expires: -1});
 			$.cookie('gameStage', 4);
+			
 		});
 	}
 	else{

@@ -35,6 +35,7 @@ $('.npc').click(function (){
 		type : 'post',
 		success : function(data){
 			
+			
 			//cookie內存入故事進展階段
 			$.cookie('storyStage', data.stage);
 			
@@ -59,7 +60,9 @@ $('#overlay').click(function(){
 		$('#overlay').hide();           //隱藏overlay
 		$('#frame').hide();  		//隱藏對話框   
 		$('#typed').typed('reset'); 
-		$.getScript('game.js', function(){game();});  //調用game()
+		
+		
+		game();  //調用game()
 	}
 	//cookie裡有文字內容則顯示下一段內容
 	else{
@@ -83,54 +86,36 @@ $('#overlay').click(function(){
 		$.cookie('content', contentSplit.join('\n'));
 	}
 });
-function getCoords(callback){
-	if (navigator.geolocation) {
-		var geo=navigator.geolocation;
-		var option={
-			enableAcuracy:true,
-			maximumAge:0.5,
-		};
-		geo.getCurrentPosition(
-			function(position){
-				callback(position);
-			},
-			function(){
-				console.log("error to get position ");
-				callback(false);
-			},
-			option
-		);
-	}
-};
+
 //跳出對話框確認
 setInterval(
 	function(){
-		getCoords(function(position){
-			if($.cookie('story') != 1){
-				$.ajax({
-					type : 'POST',
-					url : '/triggerContent',
-					data : {
-						account : $.cookie('usrd'),
-						id : 0,
-						longitude : position.coords.longitude,
-						latitude : position.coords.latitude
-					},
-					success : function(data){
-						if(data != false){
-							$.cookie('story', 1);
-							//cookie內存入故事進展階段
-							$.cookie('storyStage', data.stage);
-							
-							//顯示出拿到的文字內容
-							showContent(data.content);
-						}
-					},
-					error : function(){
-						console.log('error : can not get story content');
+		if($.cookie('story') != 1){
+			$.ajax({
+				type : 'POST',
+				url : '/triggerContent',
+				data : {
+					account : $.cookie('usrd'),
+					id : 0,
+					longitude : longitude,
+					latitude : latitude
+				},
+				success : function(data){
+					console.log(data);
+					if(data != false){
+						$.cookie('story', 1);
+						//cookie內存入故事進展階段
+						$.cookie('storyStage', data.stage);
+						
+						//顯示出拿到的文字內容
+						showContent(data.content);	
 					}
-				});
-			}
-		});
+				},
+				error : function(){
+					console.log('error : can not get story content');
+				}
+			});
+		}
+
 },1000);
 

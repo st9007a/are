@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8012);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -50,7 +50,8 @@ db.once('open', function () {
 		name : {type : String},
 		hp : {type : Number},
 		data : {type: Array},
-		gameStage : {type: Number}
+		gameStage : {type: Number},
+		queue : {type: String}
 	});
 	var storyCoords = new Schema({
 		stage : {type : Number, unique : true},
@@ -82,7 +83,8 @@ db.once('open', function () {
 			name : req.body.name,
 			hp : 100,
 			data : [1,0,0,0],
-			gameStage : 0
+			gameStage : 0,
+			queue : 'ssggsgsgs'
 		}).save();
 		console.log(req.body);
 		res.send(sha1(req.body.id).toString());
@@ -102,7 +104,8 @@ db.once('open', function () {
 				var data = {
 					name : result.name,
 					storyStage : i,
-					gameStage : result.gameStage
+					gameStage : result.gameStage,
+					queue : result.queue
 				};
 				res.send(data);
 				
@@ -202,15 +205,16 @@ db.once('open', function () {
 				
 				//故事進度與主線NPC符合
 				if(storyOrder[progress] == req.body.id ){	
-							
+					
 					storyCoord.findOne({
 						longitudeUpperBound : {$gte : req.body.longitude},
 						longitudeLowerBound : {$lte : req.body.longitude},
 						latitudeUpperBound : {$gte : req.body.latitude},
-						latitudeLowerBound : {$lte : req.body.latitude}
+						latitudeLowerBound : {$lte : req.body.latitude},
+						stage : progress
 					}, 
 					function(err, resu){
-						
+						console.log(resu);
 						if(resu.stage == progress){	
 							fileName = progress+'main';
 							//故事進度推進

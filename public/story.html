@@ -36,8 +36,34 @@
 			<button id = 'checkPwd'></button>
 		</div>
 		
-		<script src = 'story.js'></script>
+		<script>
+			navigator.vibrate = navigator.vibrate|| navigator.webkitVibrate|| navigator.mozVibrate|| navigator.msVibrate;
+			var longitude;
+			var latitude;
+			function getCoords(){
+				if (navigator.geolocation) {
+					var geo=navigator.geolocation;
+					var option={
+						enableAcuracy:true,
+						maximumAge:0.5
+					};
+					geo.getCurrentPosition(
+						function(position){
+						    longitude = position.coords.longitude;
+							latitude = position.coords.latitude;
+						},
+						function(){
+							console.log("error to get position ");
+							callback(false);
+						},
+						option
+					);
+				}
+			};
+			setInterval(getCoords,1000);
+		</script>
 		<script src = 'game.js'></script>
+		<script src = 'story.js'></script>
 		<script src='gameUIControl.js'></script>
     </body>
 </html>

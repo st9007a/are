@@ -112,7 +112,7 @@ if(window.DeviceOrientationEvent)
 {
     //監聽裝置方向
     window.addEventListener('deviceorientation', function(event)
-    { 
+    {
         beta = event.beta;
         gamma = event.gamma;
 
@@ -289,7 +289,7 @@ $("<button>",
 {
     "class": "testClass",
     "id": "ShowTestButton",
-    "style":"position:absolute; left:0;top:90vh; z-index:3;",
+    "style":"position:absolute; left:0;top:90vh; z-index:3; display:none;",
     "text": "Show Test Button"
 }).appendTo("body");
 $("#ShowTestButton").click(function(){ShowTestButton();}); 
@@ -312,11 +312,11 @@ function ShowTestButton()
             "id": "demo",
             "style":"position:absolute; left:20vw;top:0; z-index:3;"
         }).appendTo("body");
-        var x = document.getElementById("demo");
         
         setInterval(function()
         {
-            x.innerHTML = "緯度: " + positionData.coords.latitude+
+            document.getElementById("demo").innerHTML = 
+                          "緯度: " + positionData.coords.latitude+
                       "<br>經度: " + positionData.coords.longitude+ 
                       "<br>方位: " + alpha+
                    "<br>移動方向: " + positionData.coords.heading+
@@ -358,15 +358,11 @@ function ShowTestButton()
             "style":"position:absolute; left:0;top:30vh; z-index:3;",
         }).appendTo("body");
         
-        var a = document.getElementById('alpha'),
-            b = document.getElementById('beta'),
-            g = document.getElementById('gamma');
-        
         window.addEventListener('deviceorientation', function(event)
         {
-            a.innerHTML = Math.round(alpha);
-            b.innerHTML = Math.round(beta);
-            g.innerHTML = Math.round(gamma);
+            document.getElementById('alpha').innerHTML = Math.round(alpha);
+            document.getElementById('beta').innerHTML = Math.round(beta);
+            document.getElementById('gamma').innerHTML = Math.round(gamma);
         },false);
 
         sendDeviceOrientation();

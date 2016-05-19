@@ -102,7 +102,8 @@ db.once('open', function () {
 				var data = {
 					name : result.name,
 					storyStage : i,
-					gameStage : result.gameStage
+					gameStage : result.gameStage,
+					hp : result.hp
 				};
 				res.send(data);
 				

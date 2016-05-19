@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<!--網頁編碼-->
+		<meta charset="utf-8" />
+		
+		<!--RWD相關-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<video autoplay id="camera" style=" height:100vh; "></video>
+		<canvas id="image" width="450px" height="800px" style="display:none;"></canvas>
+		<input type='text' id='imgname'></input>
+		<button id='submit'>snapshot</button>
+		
+		<script  src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script>
+
+		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+		var constraints = {audio: false, video: true};
+		var video = document.querySelector("video");
+
+		function successCallback(stream) {
+		  window.stream = stream; // stream available to console
+		  console.log(stream);
+		  if (window.URL) {
+			video.src = window.URL.createObjectURL(stream);
+		  } else {
+			video.src = stream;
+		  }
+		}
+
+		function errorCallback(error){
+		  console.log("navigator.getUserMedia error: ", error);
+		}
+		var exArray = [];
+		MediaStreamTrack.getSources(
+		function (sourceInfos)
+		{  
+			for(var i = 0; i != sourceInfos.length; ++i)
+			{  
+				var sourceInfo = sourceInfos[i];  
+				if (sourceInfo.kind === 'video') //會遍歷audio,video，所以要判斷 
+					exArray.push(sourceInfo.id);  
+			}
+			//取得視訊串流
+			navigator.getUserMedia(
+				{
+				 'video':
+				 {  
+					//0為前置，1為後置
+					'optional': [ {'sourceId': exArray[1]} ]  
+				 }
+				},
+				successCallback, errorCallback);        
+		});
+
+		function snapshot()
+			{   
+				
+				var canvas = document.querySelector("#image");
+				var ctx = canvas.getContext('2d');
+				
+				if (stream)
+				{
+					ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+					$.ajax({
+						type:'post',
+						data:{
+							img : canvas.toDataURL(),
+							name : 'st9007a',
+							imgName : $('#imgname').val()
+						},
+						url:'img',
+						success:function(data){
+							alert(data);
+							$('#imgname').val('');
+						},
+						error:function(data){
+							alert(data);
+						}
+					});
+				}
+			}	
+		$("#submit").click(snapshot);
+		</script>
+	</body>
+</html>

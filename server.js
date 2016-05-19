@@ -29,8 +29,8 @@ lex.onRequest = app;
 
 
 https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true , limit: '50mb'}));
 app.use(express.static(__dirname + '/public'));
 mongoose.connect('mongodb://groupA:'+USER_PASSWD+'@localhost/groupA' , function(){
 	console.log('database connect');
@@ -251,6 +251,56 @@ db.once('open', function () {
 	
 });
 
+app.post('/img',function(req,res){
+	
+	
+	var imgData = req.body.img;                                            //取得base64編碼
+	var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");      //過濾編碼
+	var dataBuffer = new Buffer(base64Data, 'base64');                     //將編碼放入buffer
+
+	//將buffer存成png檔
+	fs.writeFile('public/cv/'+req.body.imgName+'.png', dataBuffer, function(err) {
+		//儲存失敗回傳錯誤訊息
+		if(err){
+			console.log(err);
+		    res.send(err);
+		}else{
+			/*
+			//儲存成功進入圖形比對
+			//呼叫child.cpp
+			var cp = child.spawn('./child',[]);
+		    
+			//輸入檔案路徑給child.cpp
+		    cp.stdin.write(new Buffer('usr/'+req.body.name+'/'+req.body.imgName+'\n'));
+		    cp.stdin.write(new Buffer('public/img/'+req.body.imgName));
+		    cp.stdin.end();
+			
+			//接收child.cpp輸出的資料
+		    cp.stdout.on('data',function(data){
+				//刪除使用者存的圖片
+				var rm = child.spawn('rm', ['usr/'+req.body.name+'/'+req.body.imgName]);
+				
+				//回傳判斷結果
+				if(data.toString()=='1'){
+					res.send(true);
+				}
+				else{
+					res.send(false);
+				}//res.send(data.toString());
+				
+		    });
+			
+			//錯誤處理
+			cp.stderr.on('data',function(data){
+				var rm = child.spawn('rm', ['usr/'+req.body.name+'/'+req.body.imgName]);
+				res.send('error on ./child');
+			});
+			*/
+			res.send('success');
+		}
+	});
+});
+
 
 
 app.post('/hw', function(req, res){
@@ -280,6 +330,9 @@ app.get('/game', function(req, res){
 app.get('/about', function(req, res){
     res.sendfile('public/about.html');
 });
-app.get('/story', function(re, res){
+app.get('/story', function(req, res){
 	res.sendfile('public/story.html');
+});
+app.get('/snap', function(req,res){
+	res.sendfile('public/snop.html');
 });

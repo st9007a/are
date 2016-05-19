@@ -29,8 +29,7 @@ function game(){
 			
 			$('#giveLeaflet').hide();
 			$.cookie('gameStage', 1);
-			
-			
+
 			id_game_interval = setInterval(game, 1000);
 		});
 	}

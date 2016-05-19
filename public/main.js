@@ -71,17 +71,11 @@ function snapshot(canvasID)
         ctx.drawImage(video,0,0,resolutionX,resolutionY);
 
         //存成影像檔
-        if(!window.chrome) //非Chrome
-        {
-            currentSnapshot=canvas.toDataURL('image/png');
-        }
-        else
-        {
-            currentSnapshot=canvas.toDataURL('image/webp');
-        }
+        currentSnapshot=canvas.toDataURL('image/png');
     }
 }
 
+    
 //傳送照片
 function sendSnapshot()
 {
@@ -118,7 +112,7 @@ if(window.DeviceOrientationEvent)
 {
     //監聽裝置方向
     window.addEventListener('deviceorientation', function(event)
-    { 
+    {
         beta = event.beta;
         gamma = event.gamma;
 
@@ -137,7 +131,7 @@ if(window.DeviceOrientationEvent)
             {
                 alpha = alpha-270;
             }
-        }   
+        }
     },false);
 }
 else
@@ -295,7 +289,7 @@ $("<button>",
 {
     "class": "testClass",
     "id": "ShowTestButton",
-    "style":"position:absolute; left:0;top:90vh; z-index:3;",
+    "style":"position:absolute; left:0;top:90vh; z-index:3; display:none;",
     "text": "Show Test Button"
 }).appendTo("body");
 $("#ShowTestButton").click(function(){ShowTestButton();}); 
@@ -318,14 +312,18 @@ function ShowTestButton()
             "id": "demo",
             "style":"position:absolute; left:20vw;top:0; z-index:3;"
         }).appendTo("body");
-        var x = document.getElementById("demo");
-        x.innerHTML = "緯度: " + positionData.coords.latitude+
-                  "<br>經度: " + positionData.coords.longitude+ 
-                  "<br>方位: " + alpha+
-               "<br>移動方向: " + positionData.coords.heading+
-               "<br>移動速度: " + positionData.coords.speed+ 
-               "<br>位置誤差: " + positionData.coords.accuracy+ 
-                  "<br>高度: " + positionData.coords.altitude;
+        
+        setInterval(function()
+        {
+            document.getElementById("demo").innerHTML = 
+                          "緯度: " + positionData.coords.latitude+
+                      "<br>經度: " + positionData.coords.longitude+ 
+                      "<br>方位: " + alpha+
+                   "<br>移動方向: " + positionData.coords.heading+
+                   "<br>移動速度: " + positionData.coords.speed+ 
+                   "<br>位置誤差: " + positionData.coords.accuracy+ 
+                      "<br>高度: " + positionData.coords.altitude;
+        },1000);
 
         sendPosition();
     }
@@ -359,12 +357,13 @@ function ShowTestButton()
             "id": "gamma",
             "style":"position:absolute; left:0;top:30vh; z-index:3;",
         }).appendTo("body");
-        var a = document.getElementById('alpha'),
-            b = document.getElementById('beta'),
-            g = document.getElementById('gamma');
-        a.innerHTML = Math.round(alpha);
-        b.innerHTML = Math.round(beta);
-        g.innerHTML = Math.round(gamma);
+        
+        window.addEventListener('deviceorientation', function(event)
+        {
+            document.getElementById('alpha').innerHTML = Math.round(alpha);
+            document.getElementById('beta').innerHTML = Math.round(beta);
+            document.getElementById('gamma').innerHTML = Math.round(gamma);
+        },false);
 
         sendDeviceOrientation();
     }
@@ -378,11 +377,11 @@ function ShowTestButton()
         "style":"position:absolute; left:40vw;top:80vh; z-index:3;",
         "text": "傳照片～"
     }).appendTo("body");
-    $("#testSendSnapshot").click(function(){sendSnapshot();}); 
+    $("#testSendSnapshot").click(function(){sendSnapshot();});
 
 }
-    
-    
+
+
 }); //end of jQuery
 
 

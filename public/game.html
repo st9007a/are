@@ -4,7 +4,7 @@
 
 <head>
    
-    <title>一探舊境 "See" Market</title>    
+    <title>一探舊境 "See" Market</title>
     <link rel="shortcut icon" href="img/favicon.ico"/>
 
     <!--網頁編碼-->
@@ -14,35 +14,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     <!--CSS-->
+    <link rel="stylesheet" href="perspectiveNavigation/normalize.css"/>
+    <link rel="stylesheet" href="perspectiveNavigation/component.css"/>
     <link rel="stylesheet" href="style.css"/>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="js/typed.js-master/js/typed.js"></script>
-	<script src="js/jcookie/jquery.cookie.js"></script>
+    
+    <!--JS-->
+    <script src="perspectiveNavigation/modernizr.custom.25376.js"></script>
+
 </head>
 
 
 
 
 <body>
-   
+
+<!-- effect-[],[]=airbnb,moveleft,rotateleft,movedown,rotatetop,laydown -->
+<div id="perspective" class="perspective effect-rotateleft">
+<div class="container">
+<div class="wrapper">
+           
     <video autoplay id="camera" style=" height:100vh; "></video>
-<!--    <img src="" style="position:absolute;left:50vw;top:0;background-color:rgb(42, 162, 51);" width="300" height="300">-->
-<!--    <canvas id="test" style="position:absolute;left:0;top:0;background-color:rgb(98, 14, 181);"></canvas>-->
-<!--    <button id="bb" style="position:absolute;left:0;top:0;">shit</button>-->
-    
-    <button onclick="getLocation()" class="testClass" style="position:absolute;left:0;top:0;z-index:3;">GPS</button>
-    <p id="demo" class="testClass" style="position:absolute;left:20vw;top:0;z-index:5;"></p>
-    <span id="alpha" class="testClass" style="position:absolute;left:0;top:10vh;z-index:3;"></span>
-    <span id="beta" class="testClass" style="position:absolute;left:0;top:20vh;z-index:3;"></span>
-    <span id="gamma" class="testClass" style="position:absolute;left:0v;top:30vh;z-index:3;"></span>
-    
+    <canvas id="test" width="450px" height="800px" style="display:none;"></canvas>
+
+    <img id="settingBtn" class="ui" src="img/setting.png" width="20%">
+    <img id="hintBtn" class="ui" src="img/hint.png" width="20%">
+    <img id="prizeBtn" class="ui" src="img/prize.png" width="20%">
+            
+</div>
+</div>
+<!-- [2]=left,right,top,bottom [3]=vertical,horizontal -->
+<nav class="outer-nav right vertical">
+    <a href="#" class="nav icon-home">玩家資訊</a>
+    <a href="#" class="nav icon-news">阿囉哈</a>
+    <a href="#" class="nav icon-image">空尼擠哇</a>
+    <a href="#" class="nav icon-upload">歐啦</a>
+    <a href="#" class="nav icon-star">ㄖ特拉斯V切</a>
+    <a href="#" class="nav icon-mail">設定</a>
+    <a href="#" class="nav icon-lock">登出</a>
+</nav>  
+</div>
+   
     
     
     <!--JS-->
-    
-    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="perspectiveNavigation/classie.js"></script>
+	<script src="perspectiveNavigation/menu.js"></script>
+	<script src="js/typed.js-master/js/typed.js"></script>
+	<script src="js/jcookie/jquery.cookie.js"></script>
 	<script src="story.js"></script>
 	<script src="game.js"></script>
+	<script src="main.js"></script>
+	<script src="ui.js"></script>
+	
+	
+
 </body>
 
 </html>

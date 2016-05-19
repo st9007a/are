@@ -2,6 +2,7 @@
 * { 
     margin: 0;
 	padding: 0;
+    text-decoration:none;
 }
 
 
@@ -11,11 +12,37 @@ body {
     overflow: hidden;
 }
 
+
+.ui {
+    position:absolute;
+    z-index: 5;
+}
+
+
+#settingBtn {
+    left:80vw;
+    top:0;
+}
+
+
+#hintBtn {
+    left:80vw;
+    top:85vh;
+}
+
+
+#prizeBtn {
+    left:0;
+    top:85vh;
+}
+
+
+
+/*====測試用====*/
 .testClass{
     font-size:1.5em;
     color:rgba(17, 201, 24, 0.67);
 }
-
 
 
 #demo {

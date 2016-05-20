@@ -19,6 +19,7 @@ function showContent(data){
 	$.cookie('content', contentSplit.join('\n'));	
 			
 };
+//點擊NPC
 $('.npc').click(function (){
     var NPCID = $(this).attr('data-id');
 	
@@ -47,7 +48,8 @@ $('.npc').click(function (){
 		}
 	});
 				
-});	
+});
+//點擊overlay
 $('#overlay').click(function(){	
 	
 	//cookie裡沒有文字內容就刪掉該cookie
@@ -87,7 +89,7 @@ $('#overlay').click(function(){
 	}
 });
 
-//跳出對話框確認
+//定位跳出對話框
 setInterval(
 	function(){
 		if($.cookie('story') != 1){

@@ -1,5 +1,6 @@
-var id_game_interval;
 
+
+//load近來將取得的資料存進cookie
 $(document).ready(function(){
 	$.ajax({
 		type : 'post',
@@ -18,13 +19,15 @@ $(document).ready(function(){
 		}
 	});
 });
+var id_game_interval;
 function game(){
 
 	if($.cookie('storyStage') == 2&& $.cookie('gameStage') == 0&& $.cookie('story') != 1){
 		
+		//
 		$.cookie('story',1);
-		console.log($.cookie('storyStage').toString()+$.cookie('gameStage').toString()+$.cookie('story').toString());
-		//飛入效果
+		
+		//給你傳單
 		$('#giveLeaflet').slideDown(2000, function(){
 			
 			$('#giveLeaflet').hide();
@@ -36,11 +39,13 @@ function game(){
 	if($.cookie('storyStage') == 2&& $.cookie('gameStage') == 1&& (longitude > 115 && longitude < 125)&& (latitude > 18 && latitude < 25)){
 		console.log('123');
 		clearInterval(id_game_interval);
-		//飛入效果
+		//拿出傳單看看
 		$('#leaflet').show();
 	}
 	if($.cookie('storyStage') == 3&& $.cookie('gameStage') == 2&& $.cookie('story') != 1){
 		$.cookie('story', 1);
+		
+		//出現時間倒數視窗
 		$('#timeBack').show();
 		
 		//時間倒數
@@ -72,6 +77,7 @@ function game(){
 		});
 	}
 	if($.cookie('storyStage') == 8&& $.cookie('gameStage') == 5&& $.cookie('story') != 1){
+		//出現義隆瓷器遊戲
 		$('#findObj').show();
 		$.cookie('story', 1);
 	}
@@ -89,7 +95,7 @@ function game(){
 	}
 	if($.cookie('storyStage') == 11&& $.cookie('gameStage') == 8&& $.cookie('story') != 1){
 		$.cookie('story', 1);
-		console.log('2m');
+		//出現第二張獎牌
 		$('#madel2').fadeIn(800, function(){
 			$('#madel2').animate({
 					bottom : '+='+screen.height+'px',
@@ -107,6 +113,7 @@ function game(){
 		});
 	}
 	if($.cookie('storyStage') == 12&& $.cookie('gameStage') == 9&& $.cookie('story') != 1){
+		//出現未完待續
 		$('#black').show();
 		$('#black').animate({
 			opacity : '1'

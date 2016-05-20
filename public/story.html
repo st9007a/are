@@ -8,38 +8,46 @@
 		
     </head>
     <body>
+	    <!--npc-->
 		<img id='1' data-id='1' class='npc' src='https://pbs.twimg.com/profile_images/671979022805438464/AHGuhRvV.png'>
 		<img id='2' data-id='2' class='npc' src='https://i.ytimg.com/vi/V8Q3waz7vZo/maxresdefault.jpg'>
 		<img id='3' data-id='3' class='npc' src='http://img02.deviantart.net/2a9d/i/2015/136/9/4/deemo_by_sishenfan-d8tni3d.jpg'>
 		<img data-id='4' class='npc' src='http://pic1.mofang.com/2015/1123/20151123015930954.jpg'>
 		<div id='frame'>
+		<!--對話框-->
 			<h1 id='typed'></h1>
 		</div>
 		<img id='overlay' class='overlay' src='https://media.cool3c.com/files/media/3/3_28.png'>
 		
+		<!--路人給你傳單-->
 		<div id = 'giveLeaflet' style='display:none;position:absolute;top:0px;left:0px;z-index:3;'>
 			<img src = 'https://wallpaperscraft.com/image/paper_crumpled_light_shadow_35117_1920x1080.jpg'>
 		</div>
 		
+		<!--到定位傳單冒出來,按按按會有變化-->
 		<div id='leaflet' style='display:none'>
 			<img id='leaflet1'  src='http://3.bp.blogspot.com/-Lh3AxZv6K7s/VYIf0tNkdLI/AAAAAAAAMIo/xqMEmj-RyXA/s1600/subarist2.jpg'>
 			<img id='leaflet2' style='display:none;' src='http://1.bp.blogspot.com/--BRFNyMzRlA/T9ntM_jO6KI/AAAAAAAADyQ/hzEq9cBmX38/s1600/IMG_1045.JPG'>
 			<img id='leaflet3' style='display:none;' src='http://b.zol-img.com.cn/sjbizhi/images/7/320x510/1404980300969.jpg'>
 		</div>
 		
+		<!--倒數顯示-->
 		<div id='timeBack' style='display:none'>
 			<h1 id='timeBackLabel'></h1>
 		</div>
 		
+		<!--倒數完後的輸入布店年代那題-->
 		<div id = 'inputPwd' style='display:none;'>
 			<input type='text' id='Pwd' />
 			<button id = 'checkPwd'>ok</button>
 		</div>
 		
+		<!--江順成獎牌-->
 		<div id='madel1' style='display:none;'>
 			<img src='http://142.4.109.71/tw.downloadicons.net/sites/default/files/gold_medal-12865.png'>
 		</div>
 		
+		<!--義隆瓷器遊戲-->
 		<div id='findObj' style='display:none;'>
 			<img id='1select' class='select' src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style='width:60px;height:60px;display:none;' >
 			<img id ='1' class='obj' src='http://tw.downloadicons.net/sites/default/files/cup30-88890.png' style='width:60px;height:60px;'>
@@ -54,15 +62,18 @@
 			<button id='checkSelect'>ok</button>
 		</div>
 		
+		<!--義隆瓷器遊戲成功後的物品資訊-->
 		<div id ='objData' style='display:none;'>
 			<img src='http://tw.downloadicons.net/sites/default/files/cup30-88890.png' style='width:100px;height:100px;'>
 			<button id='objDataBtn'>ok</button>
 		</div>
 		
+		<!--第二張獎牌-->
 		<div id='madel2' style='display:none;'>
 			<img src='http://142.4.109.71/tw.downloadicons.net/sites/default/files/gold_medal-12865.png'>
 		</div>
 		
+		<!---最後全部結束的黑畫面-->
 		<div id='black' style='width:100vw;height:100vh;background-color:black;color:white;display:none;opacity:0;'>
 			<h1 style='font-size:60px;'>to be continued...</h1>
 		</div>

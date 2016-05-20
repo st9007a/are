@@ -1,3 +1,4 @@
+//傳單區
 $('#leaflet1').click(function(){
 	$('#leaflet1').fadeOut(500, function(){
 		$('#leaflet2').fadeIn(500);
@@ -14,6 +15,7 @@ $('#leaflet3').click(function(){
 	$.cookie('gameStage', 2);
 });
 
+//輸入年代
 $('#checkPwd').click(function(){
 	if($('#Pwd').val() == '0501'){
 		$('#inputPwd').fadeOut(500, function(){
@@ -30,6 +32,7 @@ $('#checkPwd').click(function(){
 	}
 });
 
+//義隆瓷器遊戲
 var selectObj = [];
 var ansObj = ['3select','5select'];
 $('.obj').click(function(){
@@ -78,6 +81,7 @@ $('#checkSelect').click(function(){
 	}
 });
 
+//義隆瓷器遊戲成功後的物品資訊
 $('#objDataBtn').click(function(){
 	$('#objData').animate({
 		bottom : '+='+screen.height+'px',

@@ -36,14 +36,14 @@ $('.obj').click(function(){
 	var id = $(this).attr('id') + 'select';
 	
 	var a = selectObj.indexOf(id);
-	
-	if(a = -1){
+
+	if(a == -1){
 		selectObj.push(id);
-		$(id).show();
+		$('#'+id).show();
 	}
 	else{
 		selectObj.splice(a, 1);
-		$(id).hide();
+		$('#'+id).hide();
 	}
 });
 $('#checkSelect').click(function(){
@@ -88,7 +88,7 @@ $('#objDataBtn').click(function(){
 	function(){
 		$('#objData').hide();
 		$.cookie('gameStage', 6);
-		
+		$.cookie('story', '',{expires:-1});
 		//血條出問題
 	});
 });

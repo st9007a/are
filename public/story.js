@@ -101,7 +101,7 @@ setInterval(
 					latitude : latitude
 				},
 				success : function(data){
-					console.log(data);
+					
 					if(data != false){
 						$.cookie('story', 1);
 						//cookie內存入故事進展階段

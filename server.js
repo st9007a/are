@@ -64,8 +64,8 @@ db.once('open', function () {
 	var storyCoord = mongoose.model('storyCoord', storyCoords);
 	
 	//主線NPC說話順序
-	var storyOrder = [0,1,2,0,0,0];
-	var storyHint = [[],[],[],[]];
+	var storyOrder = [0,1,2,0,0,0,3,0,4,0,0,0,0];
+	var storyHint = [[],[],[],[],[],[],[],[],[],[],[],[],[]];
 	
 	
 	app.post('/login',function(req,res){
@@ -81,7 +81,7 @@ db.once('open', function () {
 			account : sha1(req.body.id).toString(),
 			name : req.body.name,
 			hp : 100,
-			data : [1,0,0,0],
+			data : [1,0,0,0,0,0,0,0,0,0,0,0,0],
 			gameStage : 0
 		}).save();
 		console.log(req.body);

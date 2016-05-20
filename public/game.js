@@ -73,18 +73,23 @@ function game(){
 	}
 	if($.cookie('storyStage') == 8&& $.cookie('gameStage') == 5&& $.cookie('story') != 1){
 		$('#findObj').show();
+		$.cookie('story', 1);
 	}
 	if($.cookie('storyStage') == 9&& $.cookie('gameStage') == 6&& $.cookie('story') != 1){
 		$.cookie('story', 1);
 		//打卡 gameStage+1///////////
+		$.cookie('story', '',{expires:-1});
+		$.cookie('gameStage', 7);
 	}
 	if($.cookie('storyStage') == 10&& $.cookie('gameStage') == 7&& $.cookie('story') != 1){
 		$.cookie('hp', 100);
 		$.cookie('gameStage', 8);
 		//回復血量///////////////
+		console.log('hp recover');
 	}
 	if($.cookie('storyStage') == 11&& $.cookie('gameStage') == 8&& $.cookie('story') != 1){
 		$.cookie('story', 1);
+		console.log('2m');
 		$('#madel2').fadeIn(800, function(){
 			$('#madel2').animate({
 					bottom : '+='+screen.height+'px',
@@ -93,6 +98,7 @@ function game(){
 				}, 
 				500,
 				function(){
+					
 					$('#madel2').hide();
 					$.cookie('story', '',{expires:-1}) ;
 					$.cookie('gameStage', 9);
@@ -101,9 +107,10 @@ function game(){
 		});
 	}
 	if($.cookie('storyStage') == 12&& $.cookie('gameStage') == 9&& $.cookie('story') != 1){
+		$('#black').show();
 		$('#black').animate({
 			opacity : '1'
-		}, 1000);
+		}, 1000, function(){console.log('black');});
 		$('#black').animate({
 			opacity : '1'
 		}, 1000);

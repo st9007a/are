@@ -127,7 +127,21 @@ function game(){
 		$.cookie('gameStage', 10);
 	}
 	
-	//$.ajax();
+	$.ajax({
+		type : 'post',
+		url : 'savePlayerData',
+		data : {
+			id : $.cookie('usrd'),
+			gameStage : $.cookie('gameStage'),
+			hp : $.cookie('hp')
+		},
+		success : function(data){
+			console.log(data);
+		},
+		error : function(err){
+			console.log(err);
+		}
+	});
 };
 
 var time = 10;

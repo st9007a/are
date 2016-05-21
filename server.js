@@ -65,7 +65,7 @@ db.once('open', function () {
 	
 	//主線NPC說話順序
 	var storyOrder = [0,1,2,0,0,0,3,0,4,0,0,0,0];
-	var storyHint = [[],[],[],[],[],[],[],[],[],[],[],[],[]];
+	var storyHint = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 	
 	
 	app.post('/login',function(req,res){
@@ -88,6 +88,7 @@ db.once('open', function () {
 		res.send(sha1(req.body.id).toString());
 	});
 	
+	//讀取玩家資料
 	app.post('/getPlayerData', function(req,res){
 		story.findOne({account:req.body.id}, function(error, result){
 			if(result != null){
@@ -111,6 +112,56 @@ db.once('open', function () {
 		});
 	});
 	
+	//儲存玩家資料
+	app.post('/savePlayerData', function(req, res){
+		story.update(
+			{account:req.body.id},
+			{$set : {
+				gameStage : req.body.gameStage,
+				hp : req.body.hp
+			}}, 
+			function(error){
+				if(error){
+					res.send(error);
+				}
+				else{
+					res.send('save data');
+				}
+			}
+		);
+	});
+	
+	//重設玩家資料的後門 :P
+	app.get('/reset',function(req, res){
+		story.findOne({name:req.query.name}, function(error,result){
+			if(error){
+				res.send(error);
+			}
+			else if(result != null){
+				story.update(
+					{name:req.query.name},
+					{$set:{
+						hp : 100,
+						data : [1,0,0,0,0,0,0,0,0,0,0,0,0],
+						gameStage : 0
+					}},
+					function(err){
+						if(err){
+							console.log(err);
+							res.send(err);
+						}
+						else{
+							res.send('<h1>玩家資料重設</h1>');
+						}
+					}
+				);
+			}
+			else{
+				res.send('<h1>找不到該玩家,請確定名字輸入正確</h1>');
+			}
+		});
+	});
+	
 	//讀NPC說話的內容
 	app.post('/content', function(req, res){
 		
@@ -126,7 +177,7 @@ db.once('open', function () {
 				//檢查故事進度到哪個階段
 				for(i=0;i<data.length;i++){
 				    //讀取主線劇情
-				    if(data[i-1] == 1 &&data[i] == 0){
+				    if(data[i-1] == 1 && (data[i] == 0||data[i] == undefined)){
 					    //故事進度與主線NPC符合
 						if(storyOrder[i] == req.body.id ){
 							
@@ -195,7 +246,7 @@ db.once('open', function () {
 				for(i=0;i<data.length;i++){
 					
 				    //讀取主線劇情
-				    if(data[i-1]==1 && data[i]==0){	    
+				    if(data[i-1]==1 && (data[i]==0||data[i] == undefined)){	    
 						progress = i;
 						break;
 					}

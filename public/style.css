@@ -6,7 +6,7 @@
 }
 
 
-body { 
+body {
     background-color:rgba(95, 26, 0, 0.87);
     font-family: sans-serif;
     overflow: hidden;
@@ -15,64 +15,27 @@ body {
 
 .ui {
     position:absolute;
-    z-index: 3;
-}
-.uihit {
-    position:absolute;
-    z-index: 4;
-	display : none;
-}
-
-
-/*#blood {
-	position:absolute;
-    z-index: 4;
-    left:90%;
-    top:50%;
-}*/
-
-#cover {
-	position:absolute;
     z-index: 5;
-	width:100vw;
-	height:100vh;
-	display:none;
-	opacity:0;
-	position:fixed;
-	top:0;
-	left:0;
 }
+
 
 #settingBtn {
     left:80vw;
     top:0;
 }
-#settingBtnhit {
-    left:80vw;
-    top:0;
-}
+
 
 #hintBtn {
     left:80vw;
     top:85vh;
 }
-#hintBtnhit {
-    left:80vw;
-    top:85vh;
-}
+
 
 #prizeBtn {
     left:0;
     top:85vh;
 }
-#prizeBtnhit {
-    left:0;
-    top:85vh;
-}
-#logo {
-    left:10vw;
-    top:10vh;
-}
+
 
 
 /*====測試用====*/
@@ -85,4 +48,5 @@ body {
 #demo {
     font-size: 1em;
 }
+
 

@@ -1,5 +1,5 @@
-jQuery(document).ready(function()
-{
+// jQuery(document).ready(function()
+// {
     
 //開啟視訊串流------------------------------------------
 
@@ -174,8 +174,7 @@ function sendDeviceOrientation()
 
 
 //位置--------------------------------------
-
-
+/*
 //定位
 if(navigator.geolocation) //如果支援
 {
@@ -217,12 +216,13 @@ if(navigator.geolocation) //如果支援
     var stopWatch=navigator.geolocation.clearWatch(watch); //停止追蹤
 
     //開始追蹤
-    setTimeout(watch,1500);
+//    setTimeout(watch,1500);
 }
 else
 {
     console.log("你的瀏覽器不支援喔～～");
 }
+
 
 
 //定位成功要幹嘛
@@ -246,7 +246,7 @@ function locateErr(error)
 
     console.log("定位失敗: "+errorTypes[error]);
 }
-
+*/
 
 //傳送位置資訊
 function sendPosition()
@@ -283,14 +283,20 @@ function sendPosition()
     
     
 //測試區==============================================
+    
+$("#hintBtn").click(function()
+{
+    $('.testClass').toggle();
+
+});
 
 //顯示測試按鈕
 $("<button>",
 {
     "class": "testClass",
     "id": "ShowTestButton",
-    "style":"position:absolute; left:0;top:90vh; z-index:3; display:none;",
-    "text": "Show Test Button"
+    "style":"position:absolute; left:0;top:90vh; z-index:3;",
+    "text": "Test Button"
 }).appendTo("body");
 $("#ShowTestButton").click(function(){ShowTestButton();}); 
 function ShowTestButton()
@@ -315,6 +321,7 @@ function ShowTestButton()
         
         setInterval(function()
         {
+			console.log('main');
             document.getElementById("demo").innerHTML = 
                           "緯度: " + positionData.coords.latitude+
                       "<br>經度: " + positionData.coords.longitude+ 
@@ -323,7 +330,7 @@ function ShowTestButton()
                    "<br>移動速度: " + positionData.coords.speed+ 
                    "<br>位置誤差: " + positionData.coords.accuracy+ 
                       "<br>高度: " + positionData.coords.altitude;
-        },1000);
+        },500);
 
         sendPosition();
     }
@@ -369,20 +376,20 @@ function ShowTestButton()
     }
     
     
-    //測試傳照片
-    $("<button>",
-    {
-        "class": "testClass",
-        "id": "testSendSnapshot",
-        "style":"position:absolute; left:40vw;top:80vh; z-index:3;",
-        "text": "傳照片～"
-    }).appendTo("body");
-    $("#testSendSnapshot").click(function(){sendSnapshot();});
+//    //測試傳照片
+//    $("<button>",
+//    {
+//        "class": "testClass",
+//        "id": "testSendSnapshot",
+//        "style":"position:absolute; left:40vw;top:80vh; z-index:3;",
+//        "text": "傳照片～"
+//    }).appendTo("body");
+//    $("#testSendSnapshot").click(function(){sendSnapshot();});
 
 }
 
 
-}); //end of jQuery
+// }); //end of jQuery
 
 
 

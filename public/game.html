@@ -11,15 +11,24 @@
     <meta charset="utf-8" />
     
     <!--RWD相關-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no;" />
     
     <!--CSS-->
     <link rel="stylesheet" href="perspectiveNavigation/normalize.css"/>
-    <link rel="stylesheet" href="perspectiveNavigation/component.css"/>
     <link rel="stylesheet" href="style.css"/>
+    <link rel='stylesheet' href="InputEffects/set2.css">
+    <link rel='stylesheet' href="story.css">
+    <link rel="stylesheet" href="setting_css/reset.css">
+	<link rel="stylesheet" href="price_css/style.css">
+    <link rel="stylesheet" href="setting_css/style.css">
+    
     
     <!--JS-->
     <script src="perspectiveNavigation/modernizr.custom.25376.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src='js/jcookie/jquery.cookie.js'></script>
+    <script src='js/typed.js-master/js/typed.js'></script>
+    <script src='InputEffects/classie.js'></script>
 
 </head>
 
@@ -27,46 +36,207 @@
 
 
 <body>
-
-<!-- effect-[],[]=airbnb,moveleft,rotateleft,movedown,rotatetop,laydown -->
-<div id="perspective" class="perspective effect-rotateleft">
-<div class="container">
-<div class="wrapper">
            
     <video autoplay id="camera" style=" height:100vh; "></video>
     <canvas id="test" width="450px" height="800px" style="display:none;"></canvas>
-
-    <img id="settingBtn" class="ui" src="img/setting.png" width="20%">
-    <img id="hintBtn" class="ui" src="img/hint.png" width="20%">
-    <img id="prizeBtn" class="ui" src="img/prize.png" width="20%">
-            
-</div>
-</div>
-<!-- [2]=left,right,top,bottom [3]=vertical,horizontal -->
-<nav class="outer-nav right vertical">
-    <a href="#" class="nav icon-home">玩家資訊</a>
-    <a href="#" class="nav icon-news">阿囉哈</a>
-    <a href="#" class="nav icon-image">空尼擠哇</a>
-    <a href="#" class="nav icon-upload">歐啦</a>
-    <a href="#" class="nav icon-star">ㄖ特拉斯V切</a>
-    <a href="#" class="nav icon-mail">設定</a>
-    <a href="#" class="nav icon-lock">登出</a>
-</nav>  
-</div>
-   
     
+    <img id="hintBtn" class="ui" src="img/hint.png" width="20%">
+    
+    <!--幫助消失-->
+	<img id='cover' src="img/hint.png" >
+    
+    <!--獎牌按鈕-->
+	<section class="cd-section">
+		<a class="cd-bouncy-nav-trigger" >
+		<img id="prizeBtn" class="ui" src="img/prize.png" width="20%">
+		</a>
+	</section>
+          
+          
+    <div class="cd-bouncy-nav-modal">
+		<nav>
+			<ul class="cd-bouncy-nav">  
+				<li><img id="p1" class="price" src="img/prize.png" width="70%"></li>
+				<li><img id="p2" class="price" src="img/prize.png" width="70%"></li>
+				<li><img id="p3" class="price" src="img/prize.png" width="70%"></li>
+				<li><img id="p4" class="price" src="img/prize.png" width="70%"></li>
+				<li><img id="p5" class="price" src="img/prize.png" width="70%"></li>
+			</ul>
+		</nav>
+	</div>
+          
+          
+    <!--設定按鈕-->
+	<a href="#cd-nav" class="cd-nav-trigger">
+			<img id="settingBtn" class="ui" src="img/setting.png" width="20%" >
+	</a>
+         
+    <!--設定主選單-->
+	<nav class="cd-nav-container" id="cd-nav">
+
+		<ul class="cd-nav">
+			<li id='aboutus' class="cd-selected" data-menu="index">
+				<a href="https://luffy.ee.ncku.edu.tw:8011/about">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"> <polyline data-cap="butt" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" points="10,24.9 10,60 26,60 26,44 38,44 38,60 54,60 54,24.9 " stroke-linejoin="square" stroke-linecap="butt"></polyline> <polyline data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points=" 4,30 32,6 60,30 " stroke-linejoin="square"></polyline> <rect data-color="color-2" x="26" y="24" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="12" height="10" stroke-linejoin="square"></rect> </g></svg>
+					</span>
+
+					<em>Intro</em>
+				</a>
+			</li>
+
+			<li data-menu="projects">
+				<a href="projects.html">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"> <g transform="translate(0, 0)"> <polyline data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points=" 22,12 22,4 42,4 42,12 " stroke-linejoin="square"></polyline> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="44" y1="44" x2="20" y2="44" stroke-linejoin="square"></line> <polyline fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="12,44 2,44 2,12 62,12 62,44 52,44 " stroke-linejoin="square"></polyline> <polyline fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="58,44 58,60 6,60 6,44 " stroke-linejoin="square"></polyline> <rect data-color="color-2" x="22" y="22" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="20" height="10" stroke-linejoin="square"></rect> <rect data-color="color-2" x="12" y="40" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="8" height="8" stroke-linejoin="square"></rect> <rect data-color="color-2" x="44" y="40" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="8" height="8" stroke-linejoin="square"></rect> </g> </svg>
+					</span>
+
+					<em>Projects</em>
+				</a>
+			</li>
+
+			<li data-menu="about">
+				<a href="about.html">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"> <g transform="translate(0, 0)"> <polyline data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points=" 38,16 62,16 62,58 2,58 2,16 26,16 " stroke-linejoin="square"></polyline> <path fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M38,20H26V8 c0-3.3,2.7-6,6-6h0c3.3,0,6,2.7,6,6V20z" stroke-linejoin="square"></path> <path fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M20,38L20,38 c-2.2,0-4-1.8-4-4v-2c0-2.2,1.8-4,4-4h0c2.2,0,4,1.8,4,4v2C24,36.2,22.2,38,20,38z" stroke-linejoin="square"></path> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="38" y1="36" x2="54" y2="36" stroke-linejoin="square"></line> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="38" y1="44" x2="48" y2="44" stroke-linejoin="square"></line> <path fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M30,48H10v0 c0-3.3,2.7-6,6-6h8C27.3,42,30,44.7,30,48L30,48z" stroke-linejoin="square"></path> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="32" y1="12" x2="32" y2="10" stroke-linejoin="square"></line> </g> </svg>
+					</span>
+
+					<em>About</em>
+				</a>
+			</li>
+
+			<li data-menu="services">
+				<a href="services.html">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="46" y1="56" x2="58" y2="44" stroke-linejoin="square" stroke-linecap="butt"></line> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="24" y1="10" x2="12" y2="22" stroke-linejoin="square" stroke-linecap="butt"></line> <polyline data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points=" 19,29 6,16 18,4 31,17 " stroke-linejoin="square"></polyline> <polyline data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points=" 45,31 58,44 60,58 46,56 33,43 " stroke-linejoin="square"></polyline> <rect x="21.1" y="2.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 31 -12.8406)" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="19.8" height="56.6" stroke-linejoin="square"></rect> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="24" y1="24" x2="30" y2="30" stroke-linejoin="square"></line> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="18" y1="30" x2="22" y2="34" stroke-linejoin="square"></line> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="36" y1="12" x2="42" y2="18" stroke-linejoin="square"></line> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="30" y1="18" x2="34" y2="22" stroke-linejoin="square"></line> <line fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="12" y1="36" x2="18" y2="42" stroke-linejoin="square"></line> </g></svg>
+					</span>
+
+					<em>Services</em>
+				</a>
+			</li>
+
+			<li data-menu="careers">
+			
+				<a href="careers.html">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"> <g transform="translate(0, 0)"> <polyline data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" points="24,40 28,48 36,48 40,40 " stroke-linejoin="square" stroke-linecap="butt"></polyline> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="24" y1="62" x2="28" y2="48" stroke-linejoin="square" stroke-linecap="butt"></line> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="36" y1="48" x2="40" y2="62" stroke-linejoin="square" stroke-linecap="butt"></line> <path data-cap="butt" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" d="M39.7,40H40c12.2,0,22,9.8,22,22v0H2 v0c0-12.2,9.8-22,22-22h0.3" stroke-linejoin="square" stroke-linecap="butt"></path> <path data-cap="butt" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" d="M47.9,27.5C47.2,35.7,40.3,42,32,42 h0c-8.3,0-15.2-6.4-15.9-14.5" stroke-linejoin="square" stroke-linecap="butt"></path> <path fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M16,18c0-8.8,7.2-16,16-16 h0c8.8,0,16,7.2,16,16" stroke-linejoin="square"></path> <path data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M12.1,18 c0,0.3-0.1,0.7-0.1,1c0,6.1,4.9,11,11,11c3.7,0,7-1.9,9-4.7c2,2.8,5.3,4.7,9,4.7c6.1,0,11-4.9,11-11c0-0.3,0-0.7-0.1-1H12.1z" stroke-linejoin="square"></path> </g> </svg>
+					</span>
+
+					<em>Careers</em>
+				</a>
+			</li>
+			
+			<li data-menu="contact">
+				<a href="contact.html">
+					<span>
+						<svg class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g transform="translate(0, 0)"> <polyline data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" points="10,18 32,36 54,18 " stroke-linejoin="square" stroke-linecap="butt"></polyline> <rect x="2" y="10" fill="none" stroke="#9e85d0" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" width="60" height="44" stroke-linejoin="square"></rect> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="10" y1="44" x2="18" y2="34" stroke-linejoin="square" stroke-linecap="butt"></line> <line data-cap="butt" data-color="color-2" fill="none" stroke="#9e85d0" stroke-width="2" stroke-miterlimit="10" x1="54" y1="44" x2="46" y2="34" stroke-linejoin="square" stroke-linecap="butt"></line> </g></svg>
+					</span>
+
+					<em>Contact</em>
+				</a>
+			</li>
+		</ul> <!-- .cd-3d-nav -->
+	</nav>
+         
+    
+<!---------遊戲內容---------->
+           
+    <!--npc-->
+    <img id='n1' data-id='1' class='npc' src='img/oldman.png'>
+    <img id='n2' data-id='2' class='npc' src='img/passer.png'>
+    <img id='n3' data-id='3' class='npc' src='img/老闆.png'>
+    <img id='n4' data-id='4' class='npc' src='img/新人.png'>
+    <div id='frame'>
+    <!--對話框-->
+        <h1 id='typed'></h1>
+    </div>
+    <img id='overlay' class='overlay' src='https://media.cool3c.com/files/media/3/3_28.png'>
+
+    <!--路人給你傳單-->
+    <div>
+        <img id = 'giveLeaflet' src = 'img/f1.png'>
+    </div>
+
+    <!--到定位傳單冒出來,按按按會有變化-->
+    <div id='leaflet' class="flyer">
+        <img id='leaflet1' class="flyer" src='img/ft1.png'>
+        <img id='leaflet2' class="flyer" src='img/ft2.png'>
+        <img id='leaflet3' class="flyer" src='img/ft3.png'>
+    </div>
+
+    <!--倒數顯示-->
+    <div id='timeBack' style='display:none'>
+        <h1 id='timeBackLabel'></h1>
+    </div>
+
+    <!--倒數完後的輸入布店年代那題-->
+    <div id = 'inputPwd'>
+        <span class="input input--nao" >
+            <input class="input__field input__field--nao" type="text" id="Pwd" />
+            <label class="input__label input__label--nao" for="input-2">
+                <span class="input__label-content input__label-content--nao">輸入答案</span>
+            </label>
+            <svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+            </svg>
+        </span>
+        <button id = 'checkPwd' class="nav-btn">OK！</button>
+    </div>
+
+
+
+    <!--江順成獎牌-->
+    <div>
+        <img id='madel1' src='http://142.4.109.71/tw.downloadicons.net/sites/default/files/gold_medal-12865.png' class="madel">
+    </div>
+
+    <!--義隆瓷器遊戲-->
+    <div id='findObj' >
+        <img id='1select' class='select' src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style="top:10vh;left:50vw;">
+        <img id ='1' class='obj' src='img/3.png' style="top:10vh;left:50vw;">
+
+        <img id='2select' class='select' src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style="top:45vh;left:20vw;">
+        <img id ='2' class='obj' src='img/4.png' style="top:40vh;left:20vw;">
+
+        <img id='3select' class='select'  src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style="top:50vh;left:60vw;">
+        <img id ='3' class='obj' src='img/1.png' style="top:50vh;left:60vw;">
+
+        <img id='4select' class='select'  src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style="top:30vh;left:70vw;">
+        <img id ='4' class='obj' src='img/5.png' style="top:30vh;left:70vw;">
+
+        <img id='5select' class='select' src='http://tw.downloadicons.net/sites/default/files/ok-25537.png' style="top:20vh;left:10vw;">
+        <img id ='5' class='obj' src='img/2.png' style="top:20vh;left:10vw;">
+
+        <button id='checkSelect' class="nav-btn">OK！</button>
+    </div>
+
+    <!--義隆瓷器遊戲成功後的物品資訊-->
+    <div id ='objData'>
+        <img src='img/2.png' id="showInf">
+        <button id='objDataBtn' class="nav-btn" >OK！</button>
+    </div>
+
+    <!--第二張獎牌-->
+    <div >
+        <img id='madel2' src='http://142.4.109.71/tw.downloadicons.net/sites/default/files/gold_medal-12865.png' class="madel">
+    </div>
+
+    <!---最後全部結束的黑畫面-->
+    <div id='black'>
+        <h1 id="blackText" style='font-size:1.5em;'>to be continued...</h1>
+    </div>
+
+
     
     <!--JS-->
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="perspectiveNavigation/classie.js"></script>
-	<script src="perspectiveNavigation/menu.js"></script>
-	<script src="js/typed.js-master/js/typed.js"></script>
-	<script src="js/jcookie/jquery.cookie.js"></script>
-	<script src="story.js"></script>
-	<script src="game.js"></script>
 	<script src="main.js"></script>
+	<script src="npc.js"></script>
+	<script src="game.js"></script>
+	<script src="story.js"></script>
+	<script src='gameUIControl.js'></script>
 	<script src="ui.js"></script>
-	
+	<script src="js/priceBtnmain.js"></script>
+	<script src="js/settingBtnmain.js"></script>
 	
 
 </body>

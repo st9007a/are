@@ -36,17 +36,20 @@ $('#checkPwd').click(function(){
 var selectObj = [];
 var ansObj = ['3select','5select'];
 $('.obj').click(function(){
+    var ob = $(this).attr('id');
 	var id = $(this).attr('id') + 'select';
 	
 	var a = selectObj.indexOf(id);
 
 	if(a == -1){
 		selectObj.push(id);
+        $('#'+ob).hide();
 		$('#'+id).show();
 	}
 	else{
 		selectObj.splice(a, 1);
 		$('#'+id).hide();
+        $('#'+ob).show();
 	}
 });
 $('#checkSelect').click(function(){
@@ -54,7 +57,7 @@ $('#checkSelect').click(function(){
 	var ans = true;
 	
 	if(selectObj.length != ansObj.length){	
-		ans = false;	
+		ans = false;
 	}
 	else{
 		for(i=0;i<selectObj.length;i++){
@@ -68,6 +71,7 @@ $('#checkSelect').click(function(){
 	if(!ans){
 		selectObj = [];
 		$('.select').hide();
+        $('.obj').show();
 		
 		//震動
 		if (navigator.vibrate) {

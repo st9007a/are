@@ -1,3 +1,49 @@
+/*//定位
+if(navigator.geolocation) //如果支援
+{
+    //定位物件
+    var locate=function()
+    {
+        var option=
+            {
+                enableAcuracy:true,
+                maximumAge:0.5
+            };
+        navigator.geolocation.getCurrentPosition(locateSucess,locateErr,option);
+    };
+
+    //重複執行
+    setInterval(locate,1500); 
+}
+else
+{
+    console.log("你的瀏覽器不支援喔～～");
+}
+
+
+//定位成功要幹嘛
+function locateSucess(position)
+{
+    positionData=position; //全域用定位資料
+	console.log("story");
+}
+
+
+//定位失敗要幹嘛
+function locateErr(error)
+{
+    //失敗種類
+    var errorTypes=
+    {
+        0:"不明原因錯誤",
+        1:"使用者拒絕提供位置資訊",
+        2:"無法取得位置資訊",
+        3:"位置查詢逾時"
+    };
+
+    console.log("定位失敗: "+errorTypes[error]);
+}
+*/
 function showContent(data){
 	//字串分割
 	var contentSplit = data.split('\n');	
@@ -90,17 +136,16 @@ $('#overlay').click(function(){
 });
 
 //定位跳出對話框
-setInterval(
-	function(){
-		if($.cookie('story') != 1){
+setInterval(function(){
+    if($.cookie('story') != 1){
 			$.ajax({
 				type : 'POST',
 				url : '/triggerContent',
 				data : {
 					account : $.cookie('usrd'),
 					id : 0,
-					longitude : longitude,
-					latitude : latitude
+					longitude : positionData.coords.longitude,
+					latitude : positionData.coords.latitude
 				},
 				success : function(data){
 					
@@ -118,6 +163,5 @@ setInterval(
 				}
 			});
 		}
-
 },1000);
 

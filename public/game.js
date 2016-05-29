@@ -210,7 +210,7 @@ function saveData(){
 			id : $.cookie('usrd'),
 			hp : $.coookie('hp'),
 			gameStage : $.cookie('gameStage')
-		}
+		},
 		success : function(data){
 			console.log(data);
 		},

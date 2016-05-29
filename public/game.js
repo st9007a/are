@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 
 
-    var id_game_interval;
+var id_game_interval;
 function game(){
         if($.cookie('storyStage') == 2&& $.cookie('gameStage') == 0&& $.cookie('story') != 1){
 
@@ -79,12 +79,13 @@ function game(){
                 console.log('leaflet');
                 $('#giveLeaflet').hide();
                 $.cookie('gameStage', 1);
+				saveData();
 
                 id_game_interval = setInterval(game, 1000);
             });
         }
-        if($.cookie('storyStage') == 2&& $.cookie('gameStage') == 1&& (positionData.coords.longitude > 120.1983800 && positionData.coords.longitude < 120.1984200)&& (positionData.coords.latitude > 22.9939250 && positionData.coords.latitude < 22.9939900)){
-            console.log('123');
+        if($.cookie('storyStage') == 2&& $.cookie('gameStage') == 1&& (positionData.coords.longitude > 12.1983800 && positionData.coords.longitude < 129.1984200)&& (positionData.coords.latitude > 20.9939250 && positionData.coords.latitude < 25.9939900)){
+
             clearInterval(id_game_interval);
             //拿出傳單看看
             $('#leaflet').show();
@@ -120,6 +121,7 @@ function game(){
                         $('#madel1').hide();
                         $.cookie('story', '',{expires:-1}) ;
                         $.cookie('gameStage', 5);
+						saveData();
                     }
                 );
             });
@@ -134,10 +136,13 @@ function game(){
             //打卡 gameStage+1///////////
             $.cookie('story', '',{expires:-1});
             $.cookie('gameStage', 7);
+			saveData();
         }
         if($.cookie('storyStage') == 10&& $.cookie('gameStage') == 7&& $.cookie('story') != 1){
             $.cookie('hp', 100);
             $.cookie('gameStage', 8);
+			saveData();
+			
             //回復血量///////////////
             console.log('hp recover');
         }
@@ -156,6 +161,7 @@ function game(){
                         $('#madel2').hide();
                         $.cookie('story', '',{expires:-1}) ;
                         $.cookie('gameStage', 9);
+						saveData();
                     }
                 );
             });
@@ -175,27 +181,44 @@ function game(){
                 $('#black').hide();
             });
             $.cookie('gameStage', 10);
+			saveData();
         }
 
-        //$.ajax();
 };
 
-    var time = 10;
-    function timeBack(){
-        if(time > 0){
-            time--;
-            $('#timeBackLabel').html(time);
-            setTimeout(timeBack, 1000);
-        }
-        else{
-            if (navigator.vibrate) {
-                navigator.vibrate(300);
-            }
-            $('#timeBack').hide();
-            $.cookie('story', '', {expires: -1});
-            $.cookie('gameStage', 3);	
-        }
-    };
+var time = 10;
+function timeBack(){
+	if(time > 0){
+		time--;
+		$('#timeBackLabel').html(time);
+		setTimeout(timeBack, 1000);
+	}
+	else{
+		if (navigator.vibrate) {
+			navigator.vibrate(300);
+		}
+		$('#timeBack').hide();
+		$.cookie('story', '', {expires: -1});
+		$.cookie('gameStage', 3);	
+	}
+};
+function saveData(){
+	$.ajax({
+		type : 'post',
+		url : 'savePlayerData',
+		data : {
+			id : $.cookie('usrd'),
+			hp : $.coookie('hp'),
+			gameStage : $.cookie('gameStage')
+		}
+		success : function(data){
+			console.log(data);
+		},
+		error : function(err){
+			console.log(err);
+		}
+	});
+}
     
 
 

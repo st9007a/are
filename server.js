@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public'));
 lex.onRequest = app;
 
 
-https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(9527);
+https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(8011);
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true , limit: '50mb'}));
 app.use(express.static(__dirname + '/public'));
@@ -263,7 +263,7 @@ db.once('open', function () {
 						stage : progress
 					}, 
 					function(err, resu){
-						if(resu.stage == progress){	
+						if(resu!=null&&resu.stage == progress){	
 							fileName = progress+'main';
 							//故事進度推進
 							data[progress] = 1;

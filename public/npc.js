@@ -30,25 +30,26 @@ jQuery(document).ready(function()
 	//定位成功要幹嘛
 	function locateSucess(position)
 	{
+
 		positionData=position; //全域用定位資料
-	   console.log('in');
-		if(positionData.coords.latitude<25.9941200 && positionData.coords.latitude>20.9940800 && positionData.coords.longitude<129.1983200 && positionData.coords.longitude>12.1982600 && alpha<0 && alpha>180)
+	    console.log('in');
+		if(positionData.coords.latitude<25.9941200 && positionData.coords.latitude>20.9940800 && positionData.coords.longitude<129.1983200 && positionData.coords.longitude>12.1982600 && alpha>0 && alpha<90)
 		{
 			
 			$(".npc").hide();
 			$("#n1").show();
 		}
-		else if(positionData.coords.latitude<22.9940300 && positionData.coords.latitude>22.9939400 && positionData.coords.longitude<120.1983200 && positionData.coords.longitude>120.1982900 && alpha<300 && alpha>260)
+		else if(positionData.coords.latitude<25.9940300 && positionData.coords.latitude>20.9939400 && positionData.coords.longitude<129.1983200 && positionData.coords.longitude>12.1982900 && alpha<180 && alpha>90)
 		{
 			$(".npc").hide();
 			$("#n2").show();
 		}
-		else if(positionData.coords.latitude<22.9939800 && positionData.coords.latitude>22.9939300 && positionData.coords.longitude<120.1984700 && positionData.coords.longitude>120.1984200 && alpha<170 && alpha>120)
+		else if(positionData.coords.latitude<25.9939800 && positionData.coords.latitude>20.9939300 && positionData.coords.longitude<129.1984700 && positionData.coords.longitude>12.1984200 && alpha<270 && alpha>180)
 		{
 			$(".npc").hide();
 			$("#n3").show();
 		}
-		else if(positionData.coords.latitude<22.9939700 && positionData.coords.latitude>22.9939400 && positionData.coords.longitude<120.1984600 && positionData.coords.longitude>120.1984200 && alpha<225 && alpha>180)
+		else if(positionData.coords.latitude<25.9939700 && positionData.coords.latitude>20.9939400 && positionData.coords.longitude<129.1984600 && positionData.coords.longitude>12.1984200 && alpha<360 && alpha>270)
 		{
 			$(".npc").hide();
 			$("#n4").show();

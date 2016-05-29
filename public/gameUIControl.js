@@ -13,6 +13,7 @@ $('#leaflet3').click(function(){
 	$('#leaflet3').hide();
 	$.cookie('story', {expire : -1});
 	$.cookie('gameStage', 2);
+	saveData();
 });
 
 //輸入年代
@@ -21,7 +22,7 @@ $('#checkPwd').click(function(){
 		$('#inputPwd').fadeOut(500, function(){
 			$.cookie('story', '', {expires: -1});
 			$.cookie('gameStage', 4);
-			
+			saveData();
 		});
 	}
 	else{
@@ -97,6 +98,8 @@ $('#objDataBtn').click(function(){
 		$('#objData').hide();
 		$.cookie('gameStage', 6);
 		$.cookie('story', '',{expires:-1});
+		
+		saveData();
 		//血條出問題
 	});
 });
